@@ -1,33 +1,42 @@
 import { router } from "expo-router";
-import { Pressable, Text, TextInput, View } from "react-native";
+import { useState } from "react";
+import { KeyboardAvoidingView, Platform, Pressable, ScrollView, Text, View } from "react-native";
+import Button from "../../components/ui/Button";
+import Input from "../../components/ui/Input";
 
 export default function Login() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
   return (
-    <View style={{ flex: 1, padding: 24, justifyContent: "center" }}>
-      <Text style={{ fontSize: 28, fontWeight: "600", color: "#1F4E20", textAlign: "center", marginBottom: 24 }}>
-        Agritopia
-      </Text>
-      <Text style={{ fontSize: 18, fontWeight: "500", marginBottom: 12 }}>Log in</Text>
-      <TextInput
-        placeholder="Email"
-        keyboardType="email-address"
-        autoCapitalize="none"
-        style={{ borderWidth: 1, borderColor: "#E6E6E6", borderRadius: 12, paddingHorizontal: 14, paddingVertical: 12, marginBottom: 12 }}
-      />
-      <TextInput
-        placeholder="Password"
-        secureTextEntry
-        style={{ borderWidth: 1, borderColor: "#E6E6E6", borderRadius: 12, paddingHorizontal: 14, paddingVertical: 12, marginBottom: 20 }}
-      />
-      <Pressable
-        onPress={() => router.replace("/(tabs)/home")}
-        style={{ backgroundColor: "#1F4E20", paddingVertical: 14, borderRadius: 12 }}
-      >
-        <Text style={{ color: "#FFFFFF", textAlign: "center", fontWeight: "600" }}>Continue</Text>
-      </Pressable>
-      <Pressable onPress={() => router.push("/(auth)/signup")} style={{ paddingVertical: 14 }}>
-        <Text style={{ color: "#003300", textAlign: "center" }}>No account? Sign up</Text>
-      </Pressable>
-    </View>
+    <KeyboardAvoidingView style={{ flex: 1, backgroundColor: "#F4FAF4" }} behavior={Platform.OS === "ios" ? "padding" : undefined}>
+      <ScrollView contentContainerStyle={{ padding: 24 }} keyboardShouldPersistTaps="handled">
+
+      <View style={{ marginTop: 120, alignItems: "center" }}>
+        <Text style={{ fontSize: 28, fontWeight: "700", color: "#003300" }}>Hello Again!</Text>
+        <Text style={{ fontSize: 15, color: "#707B81", marginTop: 8 }}>Welcome Back You’ve Been Missed!</Text>
+      </View>
+
+      <View style={{ marginTop: 32, gap: 16 }}>
+        <Input label="Email Address" value={email} onChangeText={setEmail} placeholder="Email" keyboardType="email-address" autoCapitalize="none" />
+        <Input label="Password" value={password} onChangeText={setPassword} placeholder="Password" secureTextEntry />
+        <Pressable style={{ alignSelf: "flex-end", paddingVertical: 4 }}>
+          <Text style={{ color: "#707B81", fontSize: 13 }}>Recovery Password</Text>
+        </Pressable>
+      </View>
+
+      <View style={{ marginTop: 28, gap: 12 }}>
+        <Button title="Sign In" variant="primary" onPress={() => router.replace("/(tabs)/home")} />
+        <Button title="Sign in with google" variant="secondary" leftIconName="google" />
+      </View>
+
+      <View style={{ marginTop: 24, flexDirection: "row", justifyContent: "center", gap: 8 }}>
+        <Text style={{ color: "#707B81", fontSize: 12 }}>Don’t have an account?</Text>
+        <Pressable onPress={() => router.push("/(auth)/signup")}> 
+          <Text style={{ color: "#1A2530", fontSize: 12, fontWeight: "500" }}>Sign Up for free</Text>
+        </Pressable>
+      </View>
+      </ScrollView>
+    </KeyboardAvoidingView>
   );
 }

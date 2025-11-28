@@ -1,5 +1,7 @@
 import { Stack } from "expo-router";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+import * as SplashScreen from "expo-splash-screen";
+import { useCallback } from "react";
 
 const originalConsoleError = console.error;
 const originalConsoleWarn = console.warn;
@@ -30,9 +32,15 @@ console.warn = (...args: unknown[]) => {
   originalConsoleWarn(...formatMessage(fmt, rest));
 };
 
+SplashScreen.preventAutoHideAsync();
+
 export default function RootLayout() {
+  const onLayout = useCallback(async () => {
+    await SplashScreen.hideAsync();
+  }, []);
+
   return (
-    <GestureHandlerRootView style={{ flex: 1 }}>
+    <GestureHandlerRootView style={{ flex: 1 }} onLayout={onLayout}>
       <Stack />
     </GestureHandlerRootView>
   );
