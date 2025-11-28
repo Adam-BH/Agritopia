@@ -1,24 +1,39 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { Stack } from 'expo-router';
-import { StatusBar } from 'expo-status-bar';
-import 'react-native-reanimated';
+import { Stack } from "expo-router";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
-import { useColorScheme } from '@/hooks/use-color-scheme';
+const originalConsoleError = console.error;
+const originalConsoleWarn = console.warn;
 
-export const unstable_settings = {
-  anchor: '(tabs)',
+function formatMessage(fmt: unknown, rest: unknown[]) {
+  if (typeof fmt !== "string") return [fmt, ...rest];
+  let i = 0;
+  const msg = fmt.replace(/%[sdifoOc]/g, () => {
+    const v = rest[i++];
+    try {
+      if (typeof v === "object" && v !== null) return JSON.stringify(v);
+      return String(v);
+    } catch {
+      return String(v);
+    }
+  });
+  const extra = rest.slice(i);
+  return [msg, ...extra];
+}
+
+console.error = (...args: unknown[]) => {
+  const [fmt, ...rest] = args;
+  originalConsoleError(...formatMessage(fmt, rest));
+};
+
+console.warn = (...args: unknown[]) => {
+  const [fmt, ...rest] = args;
+  originalConsoleWarn(...formatMessage(fmt, rest));
 };
 
 export default function RootLayout() {
-  const colorScheme = useColorScheme();
-
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="modal" options={{ presentation: 'modal', title: 'Modal' }} />
-      </Stack>
-      <StatusBar style="auto" />
-    </ThemeProvider>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <Stack />
+    </GestureHandlerRootView>
   );
 }
