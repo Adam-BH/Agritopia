@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Modal, Pressable, View } from "react-native";
+import { Modal, Pressable, Text, View } from "react-native";
 import Animated, { useAnimatedStyle, useSharedValue, withTiming } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import AddActionItem from "./AddActionItem";
+import Button from "./ui/Button";
 
 type Action = {
   label: string;
@@ -13,10 +14,17 @@ type Action = {
 type Props = {
   visible: boolean;
   onClose?: () => void;
-  actions: Action[];
+  actions?: Action[];
+  mode?: "actions" | "confirm";
+  title?: string;
+  message?: string;
+  confirmLabel?: string;
+  cancelLabel?: string;
+  onConfirm?: () => void;
+  onCancel?: () => void;
 };
 
-export default function AddActionScaffold({ visible, onClose, actions }: Props) {
+export default function AddActionScaffold({ visible, onClose, actions = [], mode = "actions", title, message, confirmLabel = "Delete", cancelLabel = "Cancel", onConfirm, onCancel }: Props) {
   const insets = useSafeAreaInsets();
   const translateY = useSharedValue(300);
   const overlayOpacity = useSharedValue(0);
@@ -67,34 +75,49 @@ export default function AddActionScaffold({ visible, onClose, actions }: Props) 
         style={{ position: "absolute", left: 0, right: 0, top: 0, bottom: 0 }}
       />
 
-      <Animated.View
-        style={[
-          {
-            position: "absolute",
-            left: 0,
-            right: 0,
-            bottom: 0,
-            backgroundColor: "#FFFFFF",
-            borderTopLeftRadius: 20,
-            borderTopRightRadius: 20,
-            paddingHorizontal: 24,
-            paddingTop: 16,
-            paddingBottom: insets.bottom + 16,
-            shadowColor: "#000",
-            shadowOpacity: 0.15,
-            shadowRadius: 12,
-            shadowOffset: { width: 0, height: -4 },
-            elevation: 12,
-          },
-          sheetStyle,
-        ]}
-      >
-        <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
-          {actions.map((a) => (
-            <AddActionItem key={a.label} label={a.label} icon={a.icon} onPress={a.onPress} />
-          ))}
-        </View>
-      </Animated.View>
+       <Animated.View
+         style={[
+           {
+             position: "absolute",
+             left: 0,
+             right: 0,
+             bottom: 0,
+             backgroundColor: "#FFFFFF",
+             borderTopLeftRadius: 20,
+             borderTopRightRadius: 20,
+             paddingHorizontal: 24,
+             paddingTop: 16,
+             paddingBottom: insets.bottom + 16,
+             shadowColor: "#000",
+             shadowOpacity: 0.15,
+             shadowRadius: 12,
+             shadowOffset: { width: 0, height: -4 },
+             elevation: 12,
+           },
+           sheetStyle,
+         ]}
+       >
+        {mode === "actions" ? (
+          <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+            {actions.map((a) => (
+              <AddActionItem key={a.label} label={a.label} icon={a.icon} onPress={a.onPress} />
+            ))}
+          </View>
+        ) : (
+          <View style={{ gap: 16 }}>
+            {title ? <Text style={{ fontSize: 18, fontWeight: "700", color: "#ef4444", textAlign: "center" }}>{title}</Text> : null}
+            {message ? <Text style={{ fontSize: 14, color: "#6B7280" }}>{message}</Text> : null}
+            <View style={{ flexDirection: "row", gap: 12 }}>
+              <View style={{ flex: 1 }}>
+                <Button title={cancelLabel} variant="outline" textWeight="400" compact onPress={() => { onCancel && onCancel(); onClose && onClose(); }} />
+              </View>
+              <View style={{ flex: 1 }}>
+                <Button title={confirmLabel} textWeight="400" compact onPress={() => { onConfirm && onConfirm(); onClose && onClose(); }} />
+              </View>
+            </View>
+          </View>
+        )}
+       </Animated.View>
       </View>
     </Modal>
   );

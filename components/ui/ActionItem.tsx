@@ -1,6 +1,7 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import AddActionScaffold from '../AddActionScaffold';
 
 type ActionItemProps = {
   id: string | number;
@@ -15,6 +16,7 @@ type ActionItemProps = {
 const ActionItem: React.FC<ActionItemProps> = ({ id, title, time, initialCompleted = false, onToggle, onEdit, onDelete }) => {
   const [completed, setCompleted] = React.useState<boolean>(initialCompleted);
   const [hidden, setHidden] = React.useState<boolean>(false);
+  const [showConfirm, setShowConfirm] = React.useState<boolean>(false);
 
   if (hidden) return null;
 
@@ -53,14 +55,26 @@ const ActionItem: React.FC<ActionItemProps> = ({ id, title, time, initialComplet
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => {
-            setHidden(true);
-            onDelete && onDelete(id);
+            setShowConfirm(true);
           }}
           style={styles.actionButton}
         >
           <MaterialCommunityIcons name="trash-can" size={22} color="#ef4444" />
         </TouchableOpacity>
       </View>
+      {showConfirm ? (
+        <AddActionScaffold
+          visible={showConfirm}
+          mode="confirm"
+          title="Delete Action"
+          message={`Are you sure you want to delete this action? This cannot be undone.`}
+          confirmLabel="Delete"
+          cancelLabel="Cancel"
+          onConfirm={() => { setHidden(true); onDelete && onDelete(id); }}
+          onCancel={() => {}}
+          onClose={() => setShowConfirm(false)}
+        />
+      ) : null}
     </View>
   );
 };

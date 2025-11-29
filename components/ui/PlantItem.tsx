@@ -10,10 +10,12 @@ type Props = {
   status: Status;
   imageUri?: string;
   onPress?: () => void;
+  onDelete?: () => void;
 };
 
-export default function PlantItem({ type = "plant", name, status, imageUri, onPress }: Props) {
+export default function PlantItem({ type = "plant", name, status, imageUri, onPress, onDelete }: Props) {
   const [expanded, setExpanded] = useState(false);
+  const [hidden, setHidden] = useState(false);
 
   const statusMeta: Record<Status, { label: string; color: string; icon: React.ComponentProps<typeof MaterialCommunityIcons>["name"]; textColor: string }> = {
     ready: { label: "Ready to harvest", color: "#a3e635", icon: "basket", textColor: "#1f2937" },
@@ -22,6 +24,8 @@ export default function PlantItem({ type = "plant", name, status, imageUri, onPr
   };
 
   const meta = statusMeta[status];
+
+  if (hidden) return null;
 
   return (
     <Pressable onPress={onPress} style={{ backgroundColor: "#FFFFFF", borderRadius: 14, padding: 12, marginBottom: 16 }}>
