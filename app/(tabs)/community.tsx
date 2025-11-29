@@ -83,7 +83,7 @@ export default function Community() {
       <View style={{ flex: 1, paddingHorizontal: 20 }}>
         {/* Header */}
         <View style={{ paddingTop: 20, paddingBottom: 16 }}>
-          <Text style={{ color: "#1F4E20", fontSize: 32, fontWeight: "700", textAlign: "center" }}>
+          <Text style={{ color: "#1F4E20", fontSize: 28, fontWeight: "700", textAlign: "center" }}>
             Explore
           </Text>
         </View>

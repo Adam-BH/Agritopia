@@ -62,7 +62,7 @@ export default function Settings() {
           </Text>
 
           {/* Account Setting Section */}
-          <Section title="Account Setting">
+          <Section title="Account Settings">
             <SettingItem icon="account-edit" label="Edit profile" />
             <SettingItem icon="translate" label="Change language" />
             <SettingItem icon="shield-account" label="Privacy" />
