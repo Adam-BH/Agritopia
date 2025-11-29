@@ -20,17 +20,23 @@ export default function MyFishBoiler() {
 
   return (
     <View style={{ marginTop: 16 }}>
-      <Text style={{ color: "#003300", fontSize: 18, fontWeight: "700", marginBottom: 8 }}>My Fishs</Text>
+      <View style={{ alignItems: "flex-start" }}>
+        <Text style={{ color: "#003300", fontSize: 18, fontWeight: "400" }}>Current</Text>
+      </View>
+      <View style={{ marginTop: 12 }}>
+        {current.map((it, i) => (
+          <PlantItem key={`fc-${i}`} type="fish" name={it.name} status={it.status} />
+        ))}
+      </View>
 
-      <Text style={{ color: "#003300", fontSize: 16, fontWeight: "700", marginBottom: 8 }}>Current</Text>
-      {current.map((it, i) => (
-        <PlantItem key={`fc-${i}`} type="fish" name={it.name} status={it.status} />
-      ))}
-
-      <Text style={{ color: "#003300", fontSize: 16, fontWeight: "700", marginTop: 16, marginBottom: 8 }}>History</Text>
-      {history.map((it, i) => (
-        <PlantItem key={`fh-${i}`} type="fish" name={it.name} status={it.status} />
-      ))}
+      <View style={{ marginTop: 16, alignItems: "flex-start" }}>
+        <Text style={{ color: "#003300", fontSize: 18, fontWeight: "400" }}>History</Text>
+      </View>
+      <View style={{ marginTop: 12 }}>
+        {history.map((it, i) => (
+          <PlantItem key={`fh-${i}`} type="fish" name={it.name} status={it.status} />
+        ))}
+      </View>
     </View>
   );
 }
