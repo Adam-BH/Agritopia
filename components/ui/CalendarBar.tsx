@@ -1,4 +1,4 @@
-import { View, Text, Pressable } from "react-native";
+import { Pressable, Text, View } from "react-native";
 
 function getWeekDates(today: Date) {
   const labels = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
@@ -20,7 +20,7 @@ export default function CalendarBar({ date = new Date(), selectedIndex, onSelect
   const { days, currentIndex } = getWeekDates(date);
   const sel = typeof selectedIndex === "number" ? selectedIndex : currentIndex;
   return (
-    <View style={{ backgroundColor: "#FFFFFF", height: 70, borderRadius: 15, width: 335, alignSelf: "center", overflow: "hidden", justifyContent: "center" }}>
+    <View style={{ backgroundColor: "#FFFFFF", height: 70, borderRadius: 15, width: "100%", alignSelf: "center", overflow: "hidden", justifyContent: "center" }}>
       <View style={{ flexDirection: "row", justifyContent: "center", alignItems: "center", gap: 16 }}>
         {days.map((d, i) => {
           const isToday = i === sel;

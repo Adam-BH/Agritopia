@@ -1,40 +1,137 @@
-import { View, Text, Pressable } from "react-native";
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import React from 'react';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
-type Props = {
-  type: "water" | "wind" | "sun" | "fertilize";
+type ActionItemProps = {
+  id: string | number;
   title: string;
   time: string;
-  done?: boolean;
-  onToggle?: () => void;
+  initialCompleted?: boolean;
+  onToggle?: (id: string | number) => void;
+  onEdit?: (id: string | number) => void;
+  onDelete?: (id: string | number) => void;
 };
 
-const typeColor: Record<Props["type"], string> = {
-  water: "#6AB9A9",
-  wind: "#82A483",
-  sun: "#A2C1A3",
-  fertilize: "#A2C1A3",
-};
+const ActionItem: React.FC<ActionItemProps> = ({ id, title, time, initialCompleted = false, onToggle, onEdit, onDelete }) => {
+  const [completed, setCompleted] = React.useState<boolean>(initialCompleted);
+  const [hidden, setHidden] = React.useState<boolean>(false);
 
-const typeEmoji: Record<Props["type"], string> = {
-  water: "💧",
-  wind: "🌬️",
-  sun: "☀️",
-  fertilize: "🌱",
-};
+  if (hidden) return null;
 
-export default function ActionItem({ type, title, time, done = false, onToggle }: Props) {
   return (
-    <View style={{ backgroundColor: "#FFFFFF", borderRadius: 14, padding: 16, flexDirection: "row", alignItems: "center", marginTop: 12 }}>
-      <View style={{ width: 24, height: 24, borderRadius: 12, backgroundColor: typeColor[type], alignItems: "center", justifyContent: "center", marginRight: 12 }}>
-        <Text style={{ fontSize: 12 }}>{typeEmoji[type]}</Text>
+    <View style={styles.itemContainer}>
+      <TouchableOpacity
+        onPress={() => {
+          setCompleted((prev) => {
+            const next = !prev;
+            onToggle && onToggle(id);
+            return next;
+          });
+        }}
+        style={[styles.checkbox, completed ? styles.checkboxCompleted : styles.checkboxUncompleted]}
+      >
+        {completed ? (
+          <MaterialCommunityIcons name="check-bold" size={28} color="#15803d" />
+        ) : (
+          <MaterialCommunityIcons name="checkbox-blank-circle-outline" size={28} color="#d1d5db" />
+        )}
+      </TouchableOpacity>
+
+      <View style={styles.textContainer}>
+        <Text style={[styles.title, completed ? styles.titleCompleted : styles.titleUncompleted]}>{title}</Text>
+        <Text style={styles.time}>{time}</Text>
       </View>
-      <View style={{ flex: 1 }}>
-        <Text style={{ color: "#1F4E20", fontSize: 16, fontWeight: "600" }}>{title}</Text>
-        <Text style={{ color: "#828A89", marginTop: 4, fontSize: 13 }}>{time}</Text>
+
+      <View style={styles.actionButtons}>
+        <TouchableOpacity
+          onPress={() => {
+            onEdit && onEdit(id);
+          }}
+          style={styles.actionButton}
+        >
+          <MaterialCommunityIcons name="pencil" size={22} color="#1f2937" />
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => {
+            setHidden(true);
+            onDelete && onDelete(id);
+          }}
+          style={styles.actionButton}
+        >
+          <MaterialCommunityIcons name="trash-can" size={22} color="#ef4444" />
+        </TouchableOpacity>
       </View>
-      <Pressable onPress={onToggle} style={{ width: 24, height: 24, borderRadius: 12, borderWidth: 1, borderColor: "#1F4E20", alignItems: "center", justifyContent: "center", backgroundColor: done ? "#1F4E20" : "transparent" }}>
-        <Text style={{ color: done ? "#FFFFFF" : "#1F4E20", fontSize: 14 }}>{done ? "✓" : ""}</Text>
-      </Pressable>
     </View>
   );
-}
+};
+
+const styles = StyleSheet.create({
+  itemContainer: {
+    backgroundColor: '#ffffff',
+    borderRadius: 12,
+    padding: 16,
+    marginBottom: 12,
+    flexDirection: 'row',
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.05,
+    shadowRadius: 2,
+    elevation: 2,
+    borderWidth: 1,
+    borderColor: '#e5e7eb',
+  },
+  checkbox: {
+    width: 64,
+    height: 64,
+    borderRadius: 12,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginRight: 16,
+  },
+  checkboxCompleted: {
+    backgroundColor: '#dcfce7',
+  },
+  checkboxUncompleted: {
+    backgroundColor: '#f3f4f6',
+  },
+  checkIcon: {
+    fontSize: 32,
+    fontWeight: 'bold',
+  },
+  textContainer: {
+    flex: 1,
+  },
+  title: {
+    fontSize: 18,
+    fontWeight: '600',
+  },
+  titleCompleted: {
+    color: '#15803d',
+  },
+  titleUncompleted: {
+    color: '#1f2937',
+  },
+  time: {
+    fontSize: 14,
+    color: '#9ca3af',
+    marginTop: 4,
+  },
+  actionButtons: {
+    flexDirection: 'row',
+    gap: 8,
+  },
+  actionButton: {
+    width: 40,
+    height: 40,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 8,
+  },
+  iconText: {
+    fontSize: 20,
+  },
+});
+
+export default ActionItem;
+

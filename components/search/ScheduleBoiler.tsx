@@ -1,54 +1,58 @@
-import { useState } from "react";
-import { View } from "react-native";
+import { useMemo, useState } from "react";
+import { Text, View } from "react-native";
 import ActionItem from "../ui/ActionItem";
 import CalendarBar from "../ui/CalendarBar";
-
-type A = { type: "water" | "wind" | "sun" | "fertilize"; title: string; time: string; done?: boolean };
 
 export default function ScheduleBoiler() {
   const today = new Date();
   const mondayIndex = (today.getDay() + 6) % 7;
   const [sel, setSel] = useState<number>(mondayIndex);
-  const [actionsByDay, setActionsByDay] = useState<Record<number, A[]>>({
-    0: [
-      { type: "water", title: "Water Anthurium", time: "08:00" },
-      { type: "wind", title: "Ventilate greenhouse", time: "12:00" },
-    ],
-    1: [{ type: "sun", title: "Move Potatoes to sunlight", time: "09:30" }],
-    2: [
-      { type: "fertilize", title: "Fertilize Ginger", time: "10:00" },
-      { type: "water", title: "Irrigate tomatoes", time: "17:00" },
-    ],
-    3: [{ type: "wind", title: "Check ventilation", time: "13:00" }],
-    4: [{ type: "sun", title: "Rotate planters", time: "11:00" }],
-    5: [{ type: "water", title: "Water sunflowers", time: "08:30" }],
-    6: [{ type: "fertilize", title: "Compost application", time: "15:00" }],
-  });
+  const fullLabels = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+  const startOfWeek = new Date(today);
+  startOfWeek.setHours(0, 0, 0, 0);
+  startOfWeek.setDate(startOfWeek.getDate() - mondayIndex);
+  const selectedDate = new Date(startOfWeek);
+  selectedDate.setDate(startOfWeek.getDate() + sel);
 
-  const items = actionsByDay[sel] ?? [];
+  const tasks = useMemo(
+    () => [
+      { id: "1", title: "First meal", day: 0, time: "09:00 A.M.", completed: true },
+      { id: "2", title: "Second meal", day: 0, time: "01:00 P.M.", completed: false },
+      { id: "3", title: "Evening snack", day: 0, time: "05:00 P.M.", completed: false },
+      { id: "4", title: "Gym", day: 1, time: "07:00 P.M.", completed: false },
+      { id: "5", title: "Meeting", day: 2, time: "10:30 A.M.", completed: false },
+      { id: "6", title: "Groceries", day: 3, time: "06:00 P.M.", completed: false },
+      { id: "7", title: "Movie night", day: 4, time: "08:00 P.M.", completed: false },
+      { id: "8", title: "Brunch", day: 5, time: "11:00 A.M.", completed: false },
+      { id: "9", title: "Family call", day: 6, time: "04:00 P.M.", completed: false },
+    ],
+    []
+  );
+
+  const tasksForDay = tasks.filter((t) => t.day === sel);
 
   return (
     <View style={{ marginTop: 16 }}>
       <CalendarBar selectedIndex={sel} onSelect={setSel} />
+      <View style={{ marginTop: 12, alignItems: "flex-start" }}>
+        <Text style={{ color: "#003300", fontSize: 18, fontWeight: "400" }}>
+          {fullLabels[sel]}
+        </Text>
+      </View>
       <View style={{ marginTop: 12 }}>
-        {items.map((a, i) => (
+        {tasksForDay.map((it) => (
           <ActionItem
-            key={i}
-            type={a.type}
-            title={a.title}
-            time={a.time}
-            done={!!a.done}
-            onToggle={() => {
-              setActionsByDay((prev) => {
-                const arr = [...(prev[sel] ?? [])];
-                arr[i] = { ...arr[i], done: !arr[i].done };
-                return { ...prev, [sel]: arr };
-              });
-            }}
+            key={it.id}
+            id={it.id}
+            title={it.title}
+            time={it.time}
+            initialCompleted={it.completed}
+            onToggle={(id) => console.log("Toggle", id)}
+            onEdit={(id) => console.log("Edit", id)}
+            onDelete={(id) => console.log("Delete", id)}
           />
         ))}
       </View>
-      
     </View>
   );
 }
