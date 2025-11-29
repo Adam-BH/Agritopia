@@ -14,25 +14,26 @@ export default function AddActionItem({ label, icon, onPress }: Props) {
       onPress={onPress}
       style={({ pressed }) => ({
         opacity: pressed ? 0.8 : 1,
-        width: 96,
+        flexDirection: "row",
         alignItems: "center",
-        gap: 8,
+        paddingVertical: 14,
+        gap: 12,
       })}
     >
       <View
         style={{
-          width: 64,
-          height: 64,
-          borderRadius: 16,
-          backgroundColor: "#E7F4E8",
+          width: 44,
+          height: 44,
+          borderRadius: 22,
+          backgroundColor: "#A6DABD",
           alignItems: "center",
           justifyContent: "center",
         }}
       >
-        <MaterialCommunityIcons name={icon as any} size={28} color="#1F4E20" />
+        <MaterialCommunityIcons name={icon as any} size={22} color="#FFFFFF" />
       </View>
-      <Text style={{ fontSize: 14, color: "#1F2937" }}>{label}</Text>
+      <Text style={{ fontSize: 16, color: "#1F4E20", fontWeight: "600" }}>{label}</Text>
+      <MaterialCommunityIcons name="chevron-right" size={20} color="#1F4E20" style={{ marginLeft: "auto" }} />
     </Pressable>
   );
 }
-

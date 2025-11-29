@@ -98,10 +98,20 @@ export default function AddActionScaffold({ visible, onClose, actions = [], mode
          ]}
        >
         {mode === "actions" ? (
-          <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
-            {actions.map((a) => (
-              <AddActionItem key={a.label} label={a.label} icon={a.icon} onPress={a.onPress} />
-            ))}
+          <View style={{ gap: 8 }}>
+            <Text style={{ fontSize: 18, fontWeight: "700", color: "#1F4E20", textAlign: "center" }}>
+              {title ?? "Add action"}
+            </Text>
+            <View style={{ marginTop: 8 }}>
+              {actions.map((a, idx) => (
+                <View key={a.label}>
+                  <AddActionItem label={a.label} icon={a.icon} onPress={a.onPress} />
+                  {idx < actions.length - 1 ? (
+                    <View style={{ height: 1, backgroundColor: "#E6E6E6" }} />
+                  ) : null}
+                </View>
+              ))}
+            </View>
           </View>
         ) : (
           <View style={{ gap: 16 }}>

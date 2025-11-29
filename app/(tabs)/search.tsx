@@ -31,10 +31,11 @@ export default function Search() {
               visible={showAdd}
               onClose={() => setShowAdd(false)}
               actions={[
-                { label: "Task", icon: "clipboard-plus", onPress: () => setShowAdd(false) },
-                { label: "Reminder", icon: "bell-plus", onPress: () => setShowAdd(false) },
-                { label: "Event", icon: "calendar-plus", onPress: () => setShowAdd(false) },
+                { label: "Watering", icon: "water", onPress: () => { console.log("Add action: Watering"); setShowAdd(false); } },
+                { label: "O2 adding", icon: "waves", onPress: () => { console.log("Add action: O2 adding"); setShowAdd(false); } },
+                { label: "Feeding", icon: "food", onPress: () => { console.log("Add action: Feeding"); setShowAdd(false); } },
               ]}
+              title="Add action"
             />
           </>
         ) : null}
