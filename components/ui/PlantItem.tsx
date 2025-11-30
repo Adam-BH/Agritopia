@@ -14,7 +14,6 @@ type Props = {
 };
 
 export default function PlantItem({ type = "plant", name, status, imageUri, onPress, onDelete }: Props) {
-  const [expanded, setExpanded] = useState(false);
   const [hidden, setHidden] = useState(false);
 
   const statusMeta: Record<Status, { label: string; color: string; icon: React.ComponentProps<typeof MaterialCommunityIcons>["name"]; textColor: string }> = {
@@ -28,15 +27,13 @@ export default function PlantItem({ type = "plant", name, status, imageUri, onPr
   if (hidden) return null;
 
   return (
-    <Pressable onPress={onPress} style={{ backgroundColor: "#FFFFFF", borderRadius: 14, padding: 12, marginBottom: 16 }}>
-      <View style={{ position: "absolute", right: 8, top: 12 }}>
+    <View style={{ backgroundColor: "#FFFFFF", borderRadius: 14, padding: 12, marginBottom: 16 }}>
+      <View style={{ position: "absolute", right: 8, top: 8, bottom: 8, justifyContent: "center" }}>
         <Pressable
-          onPress={() => {
-            setExpanded((prev) => !prev);
-            console.log("toggle", name, !expanded);
-          }}
+          onPress={onPress}
+          style={{ width: 40, height: 40, borderRadius: 20, alignItems: "center", justifyContent: "center" }}
         >
-          <MaterialCommunityIcons name={expanded ? "chevron-down" : "chevron-right"} size={22} color="#003300" />
+          <MaterialCommunityIcons name="arrow-right" size={28} color="#1F4E20" />
         </Pressable>
       </View>
       <View style={{ flexDirection: "row", alignItems: "center", gap: 12 }}>
@@ -57,6 +54,6 @@ export default function PlantItem({ type = "plant", name, status, imageUri, onPr
           </View>
         </View>
       </View>
-    </Pressable>
+    </View>
   );
 }

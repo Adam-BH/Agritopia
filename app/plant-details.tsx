@@ -1,13 +1,16 @@
 import Button from "@/components/ui/Button";
 import ConditionCardGrid from "@/components/ui/ConditionCardGrid";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { useRouter } from "expo-router";
+import { useLocalSearchParams, useRouter } from "expo-router";
 import { Pressable, ScrollView, StatusBar, Text, View } from "react-native";
 import { SafeAreaView, useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function PlantDetails() {
   const router = useRouter();
   const insets = useSafeAreaInsets();
+  const params = useLocalSearchParams<{ id?: string }>();
+  const typeId = params.id as string | undefined;
+  const type = typeId ? require("@/data/types").PLANT_TYPES.find((p: any) => p.id === typeId) : null;
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#F4FAF4" }} edges={[]}>
@@ -50,51 +53,19 @@ export default function PlantDetails() {
         <View style={{ backgroundColor: "#F4FAF4", borderTopLeftRadius: 24, borderTopRightRadius: 24, marginTop: -24, paddingTop: 24, paddingHorizontal: 20, paddingBottom: 32 }}>
           {/* Plant Name */}
           <Text style={{ color: "#1F4E20", fontSize: 24, fontWeight: "700", marginBottom: 20 }}>
-            Solanum lycopersicum (Tomato)
+            {type?.name ?? "Plant"}
           </Text>
 
           {/* Description Section */}
           <View style={{ marginBottom: 28 }}>
             <Text style={{ color: "#1F4E20", fontSize: 16, fontWeight: "600", marginBottom: 12 }}>Description</Text>
             <Text style={{ color: "#666666", fontSize: 14, lineHeight: 22 }}>
-              Tomato is a visually appealing and not only adds a touch of elegance to indoor spaces but also carries a positive and symbolic message of prosperity and well-being.
+              {type?.description ?? ""}
             </Text>
           </View>
 
           {/* Favored Conditions Section */}
-          <ConditionCardGrid
-            title="Favored Conditions"
-            conditions={[
-              {
-                iconName: "water",
-                iconColor: "#00695C",
-                iconBackgroundColor: "#B2DFDB",
-                label: "Water",
-                value: "250 ml",
-              },
-              {
-                iconName: "weather-sunny",
-                iconColor: "#2E7D32",
-                iconBackgroundColor: "#C8E6C9",
-                label: "Sunlight",
-                value: "Normal",
-              },
-              {
-                iconName: "waveform",
-                iconColor: "#2E7D32",
-                iconBackgroundColor: "#C8E6C9",
-                label: "O2%",
-                value: "8.3%",
-              },
-              {
-                iconName: "water-percent",
-                iconColor: "#2E7D32",
-                iconBackgroundColor: "#C8E6C9",
-                label: "Humidity",
-                value: "54%",
-              },
-            ]}
-          />
+          <ConditionCardGrid title="Favored Conditions" conditions={type?.conditions ?? []} />
 
           {/* Add to My Plants Button */}
           <Button title="Add to My Plants" onPress={() => {}} />

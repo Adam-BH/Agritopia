@@ -1,32 +1,15 @@
 import ExploreCard from "@/components/ui/ExploreCard";
 import SegmentToggle from "@/components/ui/SegmentToggle";
+import { FISH_TYPES, PLANT_TYPES } from "@/data/types";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import { useState } from "react";
 import { FlatList, Text, TextInput, View, useWindowDimensions } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-type Item = {
-  id: string;
-  title: string;
-  kind: "plant" | "fish";
-  imageUri?: string;
-};
-
-// Sample data - replace with your actual data source
-const PLANTS_DATA: Item[] = [
-  { id: "1", title: "Flowering Plants", kind: "plant" },
-  { id: "2", title: "Succulents", kind: "plant" },
-  { id: "3", title: "Herbs", kind: "plant" },
-  { id: "4", title: "Vegetables", kind: "plant" },
-];
-
-const FISH_DATA: Item[] = [
-  { id: "1", title: "Tropical Fish", kind: "fish" },
-  { id: "2", title: "Goldfish", kind: "fish" },
-  { id: "3", title: "Betta Fish", kind: "fish" },
-  { id: "4", title: "Guppies", kind: "fish" },
-];
+type Item = { id: string; title: string; kind: "plant" | "fish"; imageUri?: string };
+const PLANTS_DATA: Item[] = PLANT_TYPES.map((p) => ({ id: p.id, title: p.name, kind: "plant", imageUri: p.imageUri }));
+const FISH_DATA: Item[] = FISH_TYPES.map((f) => ({ id: f.id, title: f.name, kind: "fish", imageUri: f.imageUri }));
 
 export default function Community() {
   const router = useRouter();
@@ -41,9 +24,9 @@ export default function Community() {
 
   const handleCardPress = (item: Item) => {
     if (item.kind === "plant") {
-      router.push("/plant-details");
+      router.push({ pathname: "/plant-details", params: { id: item.id } });
     } else {
-      router.push("/fish-details");
+      router.push({ pathname: "/fish-details", params: { id: item.id } });
     }
   };
 

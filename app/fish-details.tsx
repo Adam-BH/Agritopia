@@ -1,13 +1,16 @@
 import Button from "@/components/ui/Button";
 import ConditionCardGrid from "@/components/ui/ConditionCardGrid";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { useRouter } from "expo-router";
+import { useLocalSearchParams, useRouter } from "expo-router";
 import { Pressable, ScrollView, StatusBar, Text, View } from "react-native";
 import { SafeAreaView, useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function FishDetails() {
   const router = useRouter();
   const insets = useSafeAreaInsets();
+  const params = useLocalSearchParams<{ id?: string }>();
+  const typeId = params.id as string | undefined;
+  const type = typeId ? require("@/data/types").FISH_TYPES.find((f: any) => f.id === typeId) : null;
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#F4FAF4" }} edges={[]}>
@@ -50,51 +53,19 @@ export default function FishDetails() {
         <View style={{ backgroundColor: "#F4FAF4", borderTopLeftRadius: 24, borderTopRightRadius: 24, marginTop: -24, paddingTop: 24, paddingHorizontal: 20, paddingBottom: 32 }}>
           {/* Fish Name */}
           <Text style={{ color: "#1F4E20", fontSize: 24, fontWeight: "700", marginBottom: 20 }}>
-            Fish Species Name
+            {type?.name ?? "Fish"}
           </Text>
 
           {/* Description Section */}
           <View style={{ marginBottom: 28 }}>
             <Text style={{ color: "#1F4E20", fontSize: 16, fontWeight: "600", marginBottom: 12 }}>Description</Text>
             <Text style={{ color: "#666666", fontSize: 14, lineHeight: 22 }}>
-              This fish species is known for its vibrant colors and peaceful nature, making it an excellent addition to aquariums and aquatic environments.
+              {type?.description ?? ""}
             </Text>
           </View>
 
           {/* Favored Conditions Section */}
-          <ConditionCardGrid
-            title="Favored Conditions"
-            conditions={[
-              {
-                iconName: "water",
-                iconColor: "#00695C",
-                iconBackgroundColor: "#B2DFDB",
-                label: "Water",
-                value: "250 ml",
-              },
-              {
-                iconName: "weather-sunny",
-                iconColor: "#2E7D32",
-                iconBackgroundColor: "#C8E6C9",
-                label: "Sunlight",
-                value: "Normal",
-              },
-              {
-                iconName: "waveform",
-                iconColor: "#2E7D32",
-                iconBackgroundColor: "#C8E6C9",
-                label: "O2%",
-                value: "8.3%",
-              },
-              {
-                iconName: "water-percent",
-                iconColor: "#2E7D32",
-                iconBackgroundColor: "#C8E6C9",
-                label: "Humidity",
-                value: "54%",
-              },
-            ]}
-          />
+          <ConditionCardGrid title="Favored Conditions" conditions={type?.conditions ?? []} />
 
           {/* Add to My Fish Button */}
           <Button title="Add to My Fish" onPress={() => {}} />
