@@ -1,13 +1,9 @@
 import AddActionButton from "@/components/AddActionButton";
 import AddActionScaffold from "@/components/AddActionScaffold";
 import SwipePager from "@/components/SwipePager";
-import { useState } from "react";
-import { ScrollView, View } from "react-native";
+import { View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import MyFishBoiler from "../../components/search/MyFishBoiler";
-import MyPlantsBoiler from "../../components/search/MyPlantsBoiler";
-import ScheduleBoiler from "../../components/search/ScheduleBoiler";
-import SegmentToggle from "../../components/ui/SegmentToggle";
 
 export default function Search() {
   const [seg, setSeg] = useState(0);
