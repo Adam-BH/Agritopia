@@ -1,11 +1,10 @@
 import Button from "@/components/ui/Button";
-import { Ionicons } from "@expo/vector-icons";
+import WeatherHeader from "@/components/weather/WeatherHeader";
 import { useRouter } from "expo-router";
 import { Image, Pressable, ScrollView, Text, View } from "react-native";
-import { SafeAreaView, useSafeAreaInsets } from "react-native-safe-area-context";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function Home() {
-  const insets = useSafeAreaInsets();
   const router = useRouter();
 
   return (
@@ -14,109 +13,7 @@ export default function Home() {
         contentContainerStyle={{ paddingBottom: 100 }}
         showsVerticalScrollIndicator={false}
       >
-        {/* Header Section with Weather Background */}
-        <View style={{ position: "relative", marginBottom: 20 }}>
-          {/* Background Image */}
-          <Image
-            source={require("@/assets/storm.png")}
-            style={{
-              position: "absolute",
-              top: -insets.top,
-              left: 0,
-              right: 0,
-              height: 300 + insets.top,
-              width: "100%",
-              opacity: 0.8,
-              borderBottomLeftRadius: 20,
-              borderBottomRightRadius: 20,
-            }}
-            resizeMode="cover"
-          />
-
-          {/* Location Section */}
-          <View
-            style={{
-              paddingHorizontal: 24,
-              paddingTop: 16 + insets.top,
-              marginBottom: 16,
-            }}
-          >
-            <Text style={{ color: "#B0B0B0", fontSize: 14, marginBottom: 2 }}>Your location</Text>
-            <Text style={{ color: "#FFFFFF", fontSize: 16, fontWeight: "600" }}>Gampaha, Sri Lanka</Text>
-          </View>
-
-          {/* Search Bar */}
-          <View style={{ paddingHorizontal: 24, marginBottom: 40 }}>
-            <View
-              style={{
-                backgroundColor: "#FFFFFF",
-                borderRadius: 50,
-                paddingHorizontal: 16,
-                paddingVertical: 12,
-                flexDirection: "row",
-                alignItems: "center",
-                gap: 12,
-              }}
-            >
-              <Ionicons name="search" size={20} color="#828A89" />
-              <Text style={{ flex: 1, color: "#828A89", fontSize: 16 }}>
-                Search plants & Fish
-              </Text>
-            </View>
-          </View>
-
-          {/* Weather Card - Positioned on top of grey box */}
-          <View
-            style={{
-              backgroundColor: "#FFFFFF",
-              borderRadius: 20,
-              paddingVertical: 16,
-              paddingHorizontal: 32,
-              marginHorizontal: 24,
-              marginTop: 0,
-              marginBottom: 20,
-              flexDirection: "row",
-              justifyContent: "space-between",
-              alignItems: "center",
-              zIndex: 10,
-              // Shadow for iOS
-              shadowColor: "#000",
-              shadowOffset: {
-                width: 0,
-                height: 4,
-              },
-              shadowOpacity: 0.15,
-              shadowRadius: 8,
-              // Elevation for Android
-              elevation: 8,
-            }}
-          >
-            <View>
-              <Text style={{ fontSize: 48, fontWeight: "700", color: "#1F4E20" }}>23°C</Text>
-              <Text style={{ fontSize: 14, color: "#828A89", marginTop: 4 }}>Gampaha, Sri Lanka</Text>
-            </View>
-            <View style={{ justifyContent: "center", alignItems: "center" }}>
-              {/* Weather Icon Placeholder - Grey cloud with yellow lightning and blue raindrops */}
-              <View
-                style={{
-                  width: 80,
-                  height: 80,
-                  justifyContent: "center",
-                  alignItems: "center",
-                  position: "relative",
-                }}
-              >
-                <Text style={{ fontSize: 60 }}>⛈️</Text>
-                {/* Overlay blue raindrops */}
-                <View style={{ position: "absolute", bottom: 0, flexDirection: "row", gap: 5 }}>
-                  <View style={{ width: 4, height: 8, borderRadius: 2, backgroundColor: "#2196F3" }} />
-                  <View style={{ width: 4, height: 8, borderRadius: 2, backgroundColor: "#2196F3" }} />
-                  <View style={{ width: 4, height: 8, borderRadius: 2, backgroundColor: "#2196F3" }} />
-                </View>
-              </View>
-            </View>
-          </View>
-        </View>
+        <WeatherHeader />
 
         {/* Plant Categories Scroll */}
         {/* <View style={{ marginBottom: 24 }}>

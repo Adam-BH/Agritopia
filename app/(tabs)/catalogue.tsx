@@ -2,8 +2,8 @@ import ExploreCard from "@/components/ui/ExploreCard";
 import SegmentToggle from "@/components/ui/SegmentToggle";
 import { FISH_TYPES, PLANT_TYPES } from "@/data/types";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { useRouter } from "expo-router";
-import { useState } from "react";
+import { useLocalSearchParams, useRouter } from "expo-router";
+import { useEffect, useRef, useState } from "react";
 import { FlatList, Text, TextInput, View, useWindowDimensions } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -13,9 +13,18 @@ const FISH_DATA: Item[] = FISH_TYPES.map((f) => ({ id: f.id, title: f.name, kind
 
 export default function Catalogue() {
   const router = useRouter();
+  const { focus } = useLocalSearchParams<{ focus?: string }>();
   const [selectedCategory, setSelectedCategory] = useState(0); // 0 = Plants, 1 = Fish
   const [searchQuery, setSearchQuery] = useState("");
   const { width } = useWindowDimensions();
+  const searchRef = useRef<TextInput>(null);
+
+  useEffect(() => {
+    if (focus && searchRef.current) {
+      const t = setTimeout(() => searchRef.current?.focus(), 50);
+      return () => clearTimeout(t);
+    }
+  }, [focus]);
 
   const currentData = selectedCategory === 0 ? PLANTS_DATA : FISH_DATA;
   const filteredData = currentData.filter((item) =>
@@ -67,6 +76,8 @@ export default function Catalogue() {
             placeholder={selectedCategory === 0 ? "Search plants & Flowers" : "Search fish"}
             placeholderTextColor="#999999"
             style={{ flex: 1, fontSize: 14, color: "#1F4E20" }}
+            ref={searchRef}
+            autoFocus={Boolean(focus)}
           />
         </View>
 
