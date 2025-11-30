@@ -52,6 +52,12 @@ export default function RootLayout() {
             headerShown: false,
           }}
         />
+        <Stack.Screen
+          name="iot-control"
+          options={{
+            headerShown: false,
+          }}
+        />
       </Stack>
     </GestureHandlerRootView>
   );
