@@ -2,7 +2,7 @@ import React from "react";
 import type { BottomTabBarProps } from "@react-navigation/bottom-tabs";
 import { View, TouchableOpacity } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
 
 export default function TabBar({ state, descriptors, navigation }: BottomTabBarProps) {
   const insets = useSafeAreaInsets();
@@ -57,8 +57,8 @@ export default function TabBar({ state, descriptors, navigation }: BottomTabBarP
             {Icon ? (
               Icon({ focused: isFocused, color: isFocused ? "#1F4E20" : "#003300", size: 24 })
             ) : (
-              <MaterialCommunityIcons
-                name="circle-outline"
+              <Ionicons
+                name="ellipse-outline"
                 size={24}
                 color={isFocused ? "#1F4E20" : "#003300"}
               />

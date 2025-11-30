@@ -11,7 +11,7 @@ type Item = { id: string; title: string; kind: "plant" | "fish"; imageUri?: stri
 const PLANTS_DATA: Item[] = PLANT_TYPES.map((p) => ({ id: p.id, title: p.name, kind: "plant", imageUri: p.imageUri }));
 const FISH_DATA: Item[] = FISH_TYPES.map((f) => ({ id: f.id, title: f.name, kind: "fish", imageUri: f.imageUri }));
 
-export default function Community() {
+export default function Catalogue() {
   const router = useRouter();
   const [selectedCategory, setSelectedCategory] = useState(0); // 0 = Plants, 1 = Fish
   const [searchQuery, setSearchQuery] = useState("");
@@ -33,14 +33,12 @@ export default function Community() {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#F4FAF4" }} edges={["top"]}>
       <View style={{ flex: 1, paddingHorizontal: 20 }}>
-        {/* Header */}
         <View style={{ paddingTop: 20, paddingBottom: 16 }}>
           <Text style={{ color: "#1F4E20", fontSize: 28, fontWeight: "700", textAlign: "center" }}>
-            Explore
+            Catalogue
           </Text>
         </View>
 
-        {/* Segment Toggle */}
         <View style={{ marginBottom: 16 }}>
           <SegmentToggle
             options={["Plants", "Fish"]}
@@ -51,7 +49,6 @@ export default function Community() {
           />
         </View>
 
-        {/* Search Bar */}
         <View
           style={{
             backgroundColor: "#FFFFFF",
@@ -73,7 +70,6 @@ export default function Community() {
           />
         </View>
 
-        {/* Content Grid */}
         <FlatList
           data={filteredData}
           numColumns={2}

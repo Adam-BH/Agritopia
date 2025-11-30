@@ -1,6 +1,6 @@
 import React from "react";
 import { TouchableOpacity } from "react-native";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { router } from "expo-router";
 
@@ -29,7 +29,7 @@ export default function QrButton() {
         borderWidth: 0,
       }}
     >
-      <MaterialCommunityIcons name="qrcode" size={28} color="#FFFFFF" />
+      <Ionicons name="qr-code-outline" size={28} color="#FFFFFF" />
     </TouchableOpacity>
   );
 }
