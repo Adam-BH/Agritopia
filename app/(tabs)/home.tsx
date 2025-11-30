@@ -70,7 +70,8 @@ export default function Home() {
             style={{
               backgroundColor: "#FFFFFF",
               borderRadius: 20,
-              padding: 20,
+              paddingVertical: 16,
+              paddingHorizontal: 32,
               marginHorizontal: 24,
               marginTop: 0,
               marginBottom: 20,
@@ -94,23 +95,23 @@ export default function Home() {
               <Text style={{ fontSize: 48, fontWeight: "700", color: "#1F4E20" }}>23°C</Text>
               <Text style={{ fontSize: 14, color: "#828A89", marginTop: 4 }}>Gampaha, Sri Lanka</Text>
             </View>
-            <View style={{ alignItems: "center" }}>
+            <View style={{ justifyContent: "center", alignItems: "center" }}>
               {/* Weather Icon Placeholder - Grey cloud with yellow lightning and blue raindrops */}
               <View
                 style={{
-                  width: 60,
-                  height: 60,
+                  width: 80,
+                  height: 80,
                   justifyContent: "center",
                   alignItems: "center",
                   position: "relative",
                 }}
               >
-                <Text style={{ fontSize: 40 }}>⛈️</Text>
+                <Text style={{ fontSize: 60 }}>⛈️</Text>
                 {/* Overlay blue raindrops */}
-                <View style={{ position: "absolute", bottom: 0, flexDirection: "row", gap: 4 }}>
-                  <View style={{ width: 3, height: 6, borderRadius: 1.5, backgroundColor: "#2196F3" }} />
-                  <View style={{ width: 3, height: 6, borderRadius: 1.5, backgroundColor: "#2196F3" }} />
-                  <View style={{ width: 3, height: 6, borderRadius: 1.5, backgroundColor: "#2196F3" }} />
+                <View style={{ position: "absolute", bottom: 0, flexDirection: "row", gap: 5 }}>
+                  <View style={{ width: 4, height: 8, borderRadius: 2, backgroundColor: "#2196F3" }} />
+                  <View style={{ width: 4, height: 8, borderRadius: 2, backgroundColor: "#2196F3" }} />
+                  <View style={{ width: 4, height: 8, borderRadius: 2, backgroundColor: "#2196F3" }} />
                 </View>
               </View>
             </View>
