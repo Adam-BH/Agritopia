@@ -1,4 +1,3 @@
-import SwipePager from "@/components/SwipePager";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Pressable, ScrollView, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -50,48 +49,46 @@ function Section({ title, children }: SectionProps) {
 
 export default function Settings() {
   return (
-    <SwipePager>
-      <SafeAreaView style={{ flex: 1, backgroundColor: "#F4FAF4" }} edges={["top"]}>
-        <ScrollView
-          contentContainerStyle={{ paddingHorizontal: 24, paddingTop: 24, paddingBottom: 40 }}
-          showsVerticalScrollIndicator={false}
+    <SafeAreaView style={{ flex: 1, backgroundColor: "#F4FAF4" }} edges={["top"]}>
+      <ScrollView
+        contentContainerStyle={{ paddingHorizontal: 24, paddingTop: 24, paddingBottom: 40 }}
+        showsVerticalScrollIndicator={false}
+      >
+        {/* Title */}
+        <Text style={{ color: "#1F4E20", fontSize: 28, fontWeight: "700", textAlign: "center", marginBottom: 24 }}>
+          Settings
+        </Text>
+
+        {/* Account Setting Section */}
+        <Section title="Account Settings">
+          <SettingItem icon="account-edit" label="Edit profile" />
+          <SettingItem icon="translate" label="Change language" />
+          <SettingItem icon="shield-account" label="Privacy" />
+        </Section>
+
+        {/* Legal Section */}
+        <Section title="Legal">
+          <SettingItem icon="help-circle" label="Help" showExternalLink />
+        </Section>
+
+        {/* Logout Button */}
+        <Pressable
+          style={{
+            backgroundColor: "#FFFFFF",
+            borderRadius: 14,
+            padding: 16,
+            alignItems: "center",
+            marginTop: 40,
+          }}
         >
-          {/* Title */}
-          <Text style={{ color: "#1F4E20", fontSize: 28, fontWeight: "700", textAlign: "center", marginBottom: 24 }}>
-            Settings
+          <Text style={{ color: "#1F4E20", fontSize: 16, fontWeight: "500", textDecorationLine: "underline" }}>
+            Logout
           </Text>
+        </Pressable>
 
-          {/* Account Setting Section */}
-          <Section title="Account Settings">
-            <SettingItem icon="account-edit" label="Edit profile" />
-            <SettingItem icon="translate" label="Change language" />
-            <SettingItem icon="shield-account" label="Privacy" />
-          </Section>
-
-          {/* Legal Section */}
-          <Section title="Legal">
-            <SettingItem icon="help-circle" label="Help" showExternalLink />
-          </Section>
-
-          {/* Logout Button */}
-          <Pressable
-            style={{
-              backgroundColor: "#FFFFFF",
-              borderRadius: 14,
-              padding: 16,
-              alignItems: "center",
-              marginTop: 40,
-            }}
-          >
-            <Text style={{ color: "#1F4E20", fontSize: 16, fontWeight: "500", textDecorationLine: "underline" }}>
-              Logout
-            </Text>
-          </Pressable>
-
-          {/* Version */}
-          <Text style={{ color: "#828A89", fontSize: 13, textAlign: "center", marginTop: 24 }}>Version 1.0.0</Text>
-        </ScrollView>
-      </SafeAreaView>
-    </SwipePager>
+        {/* Version */}
+        <Text style={{ color: "#828A89", fontSize: 13, textAlign: "center", marginTop: 24 }}>Version 1.0.0</Text>
+      </ScrollView>
+    </SafeAreaView>
   );
 }

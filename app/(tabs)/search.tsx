@@ -2,12 +2,11 @@ import AddActionButton from "@/components/AddActionButton";
 import AddActionScaffold from "@/components/AddActionScaffold";
 import MyPlantsBoiler from "@/components/search/MyPlantsBoiler";
 import ScheduleBoiler from "@/components/search/ScheduleBoiler";
-import SwipePager from "@/components/SwipePager";
 import SegmentToggle from "@/components/ui/SegmentToggle";
 import { useState } from "react";
 import { Text, View } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { SafeAreaView, useSafeAreaInsets } from "react-native-safe-area-context";
 import MyFishBoiler from "../../components/search/MyFishBoiler";
 
 export default function Search() {
@@ -15,18 +14,16 @@ export default function Search() {
   const [showAdd, setShowAdd] = useState(false);
   const insets = useSafeAreaInsets();
   return (
-    <SwipePager>
-      <View style={{ flex: 1, backgroundColor: "#F4FAF4" }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: "#F4FAF4" }} edges={["top"]}>
+      <View style={{ flex: 1 }}>
         <ScrollView
-          contentContainerStyle={{ padding: 24, paddingBottom: insets.bottom + 120 }}
+          contentContainerStyle={{ paddingHorizontal: 24, paddingTop: 24, paddingBottom: insets.bottom + 120 }}
           keyboardShouldPersistTaps="handled"
           showsVerticalScrollIndicator={false}
         >
-          <View style={{ paddingTop: 20, paddingBottom: 16 }}>
-            <Text style={{ color: "#1F4E20", fontSize: 28, fontWeight: "700", textAlign: "center" }}>
-              Search
-            </Text>
-          </View>
+          <Text style={{ color: "#1F4E20", fontSize: 28, fontWeight: "700", textAlign: "center", marginBottom: 24 }}>
+            Search
+          </Text>
           <SegmentToggle options={["My Plants", "My Fishs", "Schedule"]} value={seg} onChange={setSeg} />
           {seg === 0 ? <MyPlantsBoiler /> : seg === 1 ? <MyFishBoiler /> : <ScheduleBoiler />}
         </ScrollView>
@@ -46,6 +43,6 @@ export default function Search() {
           </>
         ) : null}
       </View>
-    </SwipePager>
+    </SafeAreaView>
   );
 }
