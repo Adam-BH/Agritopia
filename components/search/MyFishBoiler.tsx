@@ -1,5 +1,5 @@
 import { Text, View } from "react-native";
-import PlantItem from "../ui/PlantItem";
+import CatalogItem from "../ui/CatalogItem";
 import { FISH_TYPES } from "@/data/types";
 import { useRouter } from "expo-router";
 
@@ -30,7 +30,7 @@ export default function MyFishBoiler() {
         {current.map((it, i) => {
           const t = FISH_TYPES.find((f) => f.id === it.typeId);
           return (
-            <PlantItem
+            <CatalogItem
               key={`fc-${i}`}
               type="fish"
               name={t?.name ?? "Fish"}
@@ -48,7 +48,7 @@ export default function MyFishBoiler() {
         {history.map((it, i) => {
           const t = FISH_TYPES.find((f) => f.id === it.typeId);
           return (
-            <PlantItem
+            <CatalogItem
               key={`fh-${i}`}
               type="fish"
               name={t?.name ?? "Fish"}

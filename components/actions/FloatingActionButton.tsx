@@ -7,7 +7,7 @@ type Props = {
   onPress?: () => void;
 };
 
-export default function AddActionButton({ onPress }: Props) {
+export default function FloatingActionButton({ onPress }: Props) {
   const insets = useSafeAreaInsets();
   return (
     <TouchableOpacity
@@ -36,3 +36,4 @@ export default function AddActionButton({ onPress }: Props) {
     </TouchableOpacity>
   );
 }
+

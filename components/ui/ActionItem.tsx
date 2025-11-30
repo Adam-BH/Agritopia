@@ -1,7 +1,7 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import AddActionScaffold from '../AddActionScaffold';
+import ActionScaffold from '../actions/ActionScaffold';
 
 type ActionItemProps = {
   id: string | number;
@@ -63,7 +63,7 @@ const ActionItem: React.FC<ActionItemProps> = ({ id, title, time, initialComplet
         </TouchableOpacity>
       </View>
       {showConfirm ? (
-        <AddActionScaffold
+        <ActionScaffold
           visible={showConfirm}
           mode="confirm"
           title="Delete Action"

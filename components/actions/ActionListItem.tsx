@@ -8,7 +8,7 @@ type Props = {
   onPress?: () => void;
 };
 
-export default function AddActionItem({ label, icon, onPress }: Props) {
+export default function ActionListItem({ label, icon, onPress }: Props) {
   return (
     <Pressable
       onPress={onPress}
@@ -37,3 +37,4 @@ export default function AddActionItem({ label, icon, onPress }: Props) {
     </Pressable>
   );
 }
+

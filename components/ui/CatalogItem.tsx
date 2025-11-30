@@ -13,7 +13,7 @@ type Props = {
   onDelete?: () => void;
 };
 
-export default function PlantItem({ type = "plant", name, status, imageUri, onPress, onDelete }: Props) {
+export default function CatalogItem({ type = "plant", name, status, imageUri, onPress, onDelete }: Props) {
   const [hidden, setHidden] = useState(false);
 
   const statusMeta: Record<Status, { label: string; color: string; icon: React.ComponentProps<typeof MaterialCommunityIcons>["name"]; textColor: string }> = {
@@ -57,3 +57,4 @@ export default function PlantItem({ type = "plant", name, status, imageUri, onPr
     </View>
   );
 }
+

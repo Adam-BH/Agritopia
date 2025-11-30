@@ -1,5 +1,4 @@
-import AddActionButton from "@/components/AddActionButton";
-import AddActionScaffold from "@/components/AddActionScaffold";
+import { FloatingActionButton, ActionScaffold } from "@/components";
 import MyPlantsBoiler from "@/components/search/MyPlantsBoiler";
 import ScheduleBoiler from "@/components/search/ScheduleBoiler";
 import SegmentToggle from "@/components/ui/SegmentToggle";
@@ -29,8 +28,8 @@ export default function MyGarden() {
         </ScrollView>
         {seg === 2 ? (
           <>
-            <AddActionButton onPress={() => setShowAdd(true)} />
-            <AddActionScaffold
+            <FloatingActionButton onPress={() => setShowAdd(true)} />
+            <ActionScaffold
               visible={showAdd}
               onClose={() => setShowAdd(false)}
               actions={[
