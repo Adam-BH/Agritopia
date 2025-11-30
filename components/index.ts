@@ -3,6 +3,7 @@ export { default as BackButton } from "./ui/BackButton";
 export { default as Button } from "./ui/Button";
 export { default as CatalogItem } from "./ui/CatalogItem";
 export { default as ConditionCardGrid } from "./ui/ConditionCardGrid";
+export { default as Dropdown } from "./ui/Dropdown";
 
 export { default as ActionListItem } from "./actions/ActionListItem";
 export { default as ActionScaffold } from "./actions/ActionScaffold";
