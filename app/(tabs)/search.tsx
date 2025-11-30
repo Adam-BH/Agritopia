@@ -1,7 +1,12 @@
 import AddActionButton from "@/components/AddActionButton";
 import AddActionScaffold from "@/components/AddActionScaffold";
+import MyPlantsBoiler from "@/components/search/MyPlantsBoiler";
+import ScheduleBoiler from "@/components/search/ScheduleBoiler";
 import SwipePager from "@/components/SwipePager";
-import { View } from "react-native";
+import SegmentToggle from "@/components/ui/SegmentToggle";
+import { useState } from "react";
+import { Text, View } from "react-native";
+import { ScrollView } from "react-native-gesture-handler";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import MyFishBoiler from "../../components/search/MyFishBoiler";
 
@@ -17,6 +22,11 @@ export default function Search() {
           keyboardShouldPersistTaps="handled"
           showsVerticalScrollIndicator={false}
         >
+          <View style={{ paddingTop: 20, paddingBottom: 16 }}>
+            <Text style={{ color: "#1F4E20", fontSize: 28, fontWeight: "700", textAlign: "center" }}>
+              Search
+            </Text>
+          </View>
           <SegmentToggle options={["My Plants", "My Fishs", "Schedule"]} value={seg} onChange={setSeg} />
           {seg === 0 ? <MyPlantsBoiler /> : seg === 1 ? <MyFishBoiler /> : <ScheduleBoiler />}
         </ScrollView>
