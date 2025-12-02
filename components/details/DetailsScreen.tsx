@@ -3,6 +3,7 @@ import ConditionCardGrid from "@/components/ui/ConditionCardGrid";
 import BackButton from "@/components/ui/BackButton";
 import { ScrollView, StatusBar, Text, View } from "react-native";
 import { SafeAreaView, useSafeAreaInsets } from "react-native-safe-area-context";
+import { PLANT_TYPES, FISH_TYPES } from "@/data/types";
 
 type Props = {
   type: "plant" | "fish";
@@ -11,11 +12,10 @@ type Props = {
 
 export default function DetailsScreen({ type, id }: Props) {
   const insets = useSafeAreaInsets();
-  const data = require("@/data/types");
   const item =
     type === "plant"
-      ? data.PLANT_TYPES.find((p: any) => p.id === id)
-      : data.FISH_TYPES.find((f: any) => f.id === id);
+      ? PLANT_TYPES.find((p) => p.id === id)
+      : FISH_TYPES.find((f) => f.id === id);
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#F4FAF4" }} edges={[]}>

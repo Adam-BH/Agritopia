@@ -2,6 +2,7 @@ import Button from "@/components/ui/Button";
 import WeatherHeader from "@/components/weather/WeatherHeader";
 import { useRouter } from "expo-router";
 import { Image, Pressable, ScrollView, Text, View } from "react-native";
+import Card from "@/components/ui/Card";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function Home() {
@@ -154,16 +155,7 @@ export default function Home() {
             </Pressable>
 
             {/* Diagnose Card */}
-            <View
-              style={{
-                width: "48%",
-                backgroundColor: "#FFFFFF",
-                borderRadius: 16,
-                padding: 16,
-                position: "relative",
-                minHeight: 140,
-              }}
-            >
+            <Card style={{ width: "48%", position: "relative", minHeight: 140 }}>
               <Text style={{ fontSize: 16, fontWeight: "700", color: "#1F4E20", marginBottom: 4 }}>
                 Diagnose
               </Text>
@@ -187,20 +179,10 @@ export default function Home() {
                   resizeMode="cover"
                 />
               </View>
-            </View>
+            </Card>
 
             {/* Recommendations Card */}
-            <View
-              style={{
-                width: "48%",
-                backgroundColor: "#FFFFFF",
-                borderRadius: 16,
-                padding: 16,
-                position: "relative",
-                minHeight: 140,
-                marginTop: 0,
-              }}
-            >
+            <Card style={{ width: "48%", position: "relative", minHeight: 140 }}>
               <Text style={{ fontSize: 14, fontWeight: "700", color: "#1F4E20", marginBottom: 4 }}>
                 Recommendations
               </Text>
@@ -224,20 +206,10 @@ export default function Home() {
                   resizeMode="cover"
                 />
               </View>
-            </View>
+            </Card>
 
             {/* Reminders Card */}
-            <View
-              style={{
-                width: "48%",
-                backgroundColor: "#FFFFFF",
-                borderRadius: 16,
-                padding: 16,
-                position: "relative",
-                minHeight: 140,
-                marginTop: 0,
-              }}
-            >
+            <Card style={{ width: "48%", position: "relative", minHeight: 140 }}>
               <Text style={{ fontSize: 16, fontWeight: "700", color: "#1F4E20", marginBottom: 4 }}>
                 Reminders
               </Text>
@@ -261,7 +233,7 @@ export default function Home() {
                   resizeMode="cover"
                 />
               </View>
-            </View>
+            </Card>
           </View>
         </View>
       </ScrollView>

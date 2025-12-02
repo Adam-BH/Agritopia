@@ -1,7 +1,7 @@
 import { Text, View } from "react-native";
 import CatalogItem from "../ui/CatalogItem";
 import { PLANT_TYPES } from "@/data/types";
-import { useRouter } from "expo-router";
+import useDetailsNavigation from "@/hooks/useDetailsNavigation";
 
 type PlantRecord = {
   typeId: string;
@@ -11,7 +11,7 @@ type PlantRecord = {
 };
 
 export default function MyPlantsBoiler() {
-  const router = useRouter();
+  const { openPlant } = useDetailsNavigation();
   const items: PlantRecord[] = [
     { typeId: "plant_anthurium", status: "healthy", dateAdded: new Date() },
     { typeId: "plant_tomato", status: "attention", dateAdded: new Date() },
@@ -35,7 +35,7 @@ export default function MyPlantsBoiler() {
               type="plant"
               name={t?.name ?? "Plant"}
               status={it.status}
-              onPress={() => router.push({ pathname: "/plant-details", params: { id: t?.id } })}
+              onPress={() => openPlant(t?.id)}
             />
           );
         })}
@@ -53,7 +53,7 @@ export default function MyPlantsBoiler() {
               type="plant"
               name={t?.name ?? "Plant"}
               status={it.status}
-              onPress={() => router.push({ pathname: "/plant-details", params: { id: t?.id } })}
+              onPress={() => openPlant(t?.id)}
             />
           );
         })}

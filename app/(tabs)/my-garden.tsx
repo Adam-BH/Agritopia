@@ -1,8 +1,8 @@
-import { FloatingActionButton, ActionScaffold } from "@/components";
-import { useRouter } from "expo-router";
+import { ActionScaffold, FloatingActionButton } from "@/components";
 import MyPlantsBoiler from "@/components/search/MyPlantsBoiler";
 import ScheduleBoiler from "@/components/search/ScheduleBoiler";
 import SegmentToggle from "@/components/ui/SegmentToggle";
+import useActionRouting from "@/hooks/useActionRouting";
 import { useState } from "react";
 import { Text, View } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
@@ -10,7 +10,7 @@ import { SafeAreaView, useSafeAreaInsets } from "react-native-safe-area-context"
 import MyFishBoiler from "../../components/search/MyFishBoiler";
 
 export default function MyGarden() {
-  const router = useRouter();
+  const { addAction } = useActionRouting();
   const [seg, setSeg] = useState(0);
   const [showAdd, setShowAdd] = useState(false);
   const insets = useSafeAreaInsets();
@@ -35,9 +35,9 @@ export default function MyGarden() {
               visible={showAdd}
               onClose={() => setShowAdd(false)}
               actions={[
-                { label: "Watering", icon: "water", onPress: () => { setShowAdd(false); router.push(`/set-action?action=Watering`); } },
-                { label: "O2 adding", icon: "waves", onPress: () => { setShowAdd(false); router.push(`/set-action?action=O2%20adding`); } },
-                { label: "Feeding", icon: "food", onPress: () => { setShowAdd(false); router.push(`/set-action?action=Feeding`); } },
+                { label: "Watering", icon: "water", onPress: () => { setShowAdd(false); addAction("Watering"); } },
+                { label: "O2 adding", icon: "waves", onPress: () => { setShowAdd(false); addAction("O2 adding"); } },
+                { label: "Feeding", icon: "food", onPress: () => { setShowAdd(false); addAction("Feeding"); } },
               ]}
               title="Add action"
             />

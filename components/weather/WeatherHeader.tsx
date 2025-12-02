@@ -1,8 +1,8 @@
-import { Ionicons } from "@expo/vector-icons";
+import SearchBar from "@/components/ui/SearchBar";
+import useSearchNavigation from "@/hooks/useSearchNavigation";
 import * as Location from "expo-location";
-import { useRouter } from "expo-router";
 import { useEffect, useMemo, useState } from "react";
-import { Image, Pressable, Text, View } from "react-native";
+import { Image, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 type LocationState = {
@@ -63,7 +63,7 @@ function bgForCondition(condition: string) {
 
 export default function WeatherHeader() {
   const insets = useSafeAreaInsets();
-  const router = useRouter();
+  const { openCatalogueSearch } = useSearchNavigation();
   const [location, setLocation] = useState<LocationState>({ city: "", country: "", lat: null, lon: null });
   const [weather, setWeather] = useState<WeatherState>({ temperature: null, code: null, condition: "unknown" });
 
@@ -83,7 +83,7 @@ export default function WeatherHeader() {
           const city = String(p?.city || p?.district || "");
           const country = String(p?.country || "");
           if (!cancelled) setLocation({ city, country, lat, lon });
-        } catch (_) {}
+        } catch {}
         const wRes = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true`);
         const wJson = await wRes.json();
         const cw = wJson?.current_weather;
@@ -91,7 +91,7 @@ export default function WeatherHeader() {
         const code = typeof cw?.weathercode === "number" ? cw.weathercode : null;
         const condition = mapWeatherCode(code);
         if (!cancelled) setWeather({ temperature: temp, code, condition });
-      } catch (_) {}
+      } catch {}
     };
     run();
     return () => {
@@ -119,13 +119,7 @@ export default function WeatherHeader() {
       </View>
 
       <View style={{ paddingHorizontal: 24, marginBottom: 40 }}>
-        <Pressable
-          onPress={() => router.push({ pathname: "/(tabs)/catalogue", params: { focus: "1" } })}
-          style={{ backgroundColor: "#FFFFFF", borderRadius: 50, paddingHorizontal: 16, paddingVertical: 12, flexDirection: "row", alignItems: "center", gap: 12 }}
-        >
-          <Ionicons name="search" size={20} color="#828A89" />
-          <Text style={{ flex: 1, color: "#828A89", fontSize: 16 }}>Search plants & Fish</Text>
-        </Pressable>
+        <SearchBar placeholder="Search plants & Fish" onPress={() => openCatalogueSearch()} />
       </View>
 
       <View style={{ backgroundColor: "#FFFFFF", borderRadius: 20, paddingVertical: 16, paddingHorizontal: 32, marginHorizontal: 24, marginTop: 0, marginBottom: 20, flexDirection: "row", justifyContent: "space-between", alignItems: "center", zIndex: 10, shadowColor: "#000", shadowOffset: { width: 0, height: 4 }, shadowOpacity: 0.15, shadowRadius: 8, elevation: 8 }}>

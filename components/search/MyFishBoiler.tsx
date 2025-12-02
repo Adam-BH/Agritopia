@@ -1,7 +1,7 @@
 import { Text, View } from "react-native";
 import CatalogItem from "../ui/CatalogItem";
 import { FISH_TYPES } from "@/data/types";
-import { useRouter } from "expo-router";
+import useDetailsNavigation from "@/hooks/useDetailsNavigation";
 
 type FishRecord = {
   typeId: string;
@@ -11,7 +11,7 @@ type FishRecord = {
 };
 
 export default function MyFishBoiler() {
-  const router = useRouter();
+  const { openFish } = useDetailsNavigation();
   const items: FishRecord[] = [
     { typeId: "fish_tilapia", status: "healthy", dateAdded: new Date() },
     { typeId: "fish_catfish", status: "attention", dateAdded: new Date() },
@@ -35,7 +35,7 @@ export default function MyFishBoiler() {
               type="fish"
               name={t?.name ?? "Fish"}
               status={it.status}
-              onPress={() => router.push({ pathname: "/fish-details", params: { id: t?.id } })}
+              onPress={() => openFish(t?.id)}
             />
           );
         })}
@@ -53,7 +53,7 @@ export default function MyFishBoiler() {
               type="fish"
               name={t?.name ?? "Fish"}
               status={it.status}
-              onPress={() => router.push({ pathname: "/fish-details", params: { id: t?.id } })}
+              onPress={() => openFish(t?.id)}
             />
           );
         })}

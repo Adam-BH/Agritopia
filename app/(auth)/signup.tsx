@@ -1,5 +1,5 @@
+import useAuthFlow from "@/hooks/useAuthFlow";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { router } from "expo-router";
 import { useState } from "react";
 import { KeyboardAvoidingView, Platform, Pressable, ScrollView, Text, View } from "react-native";
 import Button from "../../components/ui/Button";
@@ -10,6 +10,7 @@ export default function Signup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [location, setLocation] = useState<string | null>(null);
+  const { signUp, goToLogin } = useAuthFlow();
 
   return (
     <KeyboardAvoidingView style={{ flex: 1, backgroundColor: "#F4FAF4" }} behavior={Platform.OS === "ios" ? "padding" : undefined}>
@@ -36,13 +37,13 @@ export default function Signup() {
       </View>
 
       <View style={{ marginTop: 28, gap: 12 }}>
-        <Button title="Sign Up" variant="primary" onPress={() => router.replace("/(tabs)/home")} />
+        <Button title="Sign Up" variant="primary" onPress={() => signUp(name, email, password)} />
         <Button title="Sign in with google" variant="secondary" leftIconName="google" />
       </View>
 
       <View style={{ marginTop: 24, flexDirection: "row", justifyContent: "center", gap: 8 }}>
         <Text style={{ color: "#707B81", fontSize: 12 }}>Already have an account?</Text>
-        <Pressable onPress={() => router.push("/(auth)/login")}> 
+        <Pressable onPress={() => goToLogin()}> 
           <Text style={{ color: "#1A2530", fontSize: 12, fontWeight: "500" }}>Log in</Text>
         </Pressable>
       </View>

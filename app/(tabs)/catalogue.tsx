@@ -1,8 +1,9 @@
 import ExploreCard from "@/components/ui/ExploreCard";
+import SearchBar from "@/components/ui/SearchBar";
 import SegmentToggle from "@/components/ui/SegmentToggle";
 import { FISH_TYPES, PLANT_TYPES } from "@/data/types";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { useLocalSearchParams, useRouter } from "expo-router";
+import useDetailsNavigation from "@/hooks/useDetailsNavigation";
+import { useLocalSearchParams } from "expo-router";
 import { useEffect, useRef, useState } from "react";
 import { FlatList, Text, TextInput, View, useWindowDimensions } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -12,7 +13,7 @@ const PLANTS_DATA: Item[] = PLANT_TYPES.map((p) => ({ id: p.id, title: p.name, k
 const FISH_DATA: Item[] = FISH_TYPES.map((f) => ({ id: f.id, title: f.name, kind: "fish", imageUri: f.imageUri }));
 
 export default function Catalogue() {
-  const router = useRouter();
+  const { openByKind } = useDetailsNavigation();
   const { focus } = useLocalSearchParams<{ focus?: string }>();
   const [selectedCategory, setSelectedCategory] = useState(0); // 0 = Plants, 1 = Fish
   const [searchQuery, setSearchQuery] = useState("");
@@ -32,11 +33,7 @@ export default function Catalogue() {
   );
 
   const handleCardPress = (item: Item) => {
-    if (item.kind === "plant") {
-      router.push({ pathname: "/plant-details", params: { id: item.id } });
-    } else {
-      router.push({ pathname: "/fish-details", params: { id: item.id } });
-    }
+    openByKind(item.kind, item.id);
   };
 
   return (
@@ -58,25 +55,12 @@ export default function Catalogue() {
           />
         </View>
 
-        <View
-          style={{
-            backgroundColor: "#FFFFFF",
-            borderRadius: 50,
-            paddingHorizontal: 16,
-            paddingVertical: 12,
-            flexDirection: "row",
-            alignItems: "center",
-            marginBottom: 24,
-          }}
-        >
-          <MaterialCommunityIcons name="magnify" size={24} color="#666666" style={{ marginRight: 8 }} />
-          <TextInput
+        <View style={{ marginBottom: 24 }}>
+          <SearchBar
+            ref={searchRef}
             value={searchQuery}
             onChangeText={setSearchQuery}
             placeholder={selectedCategory === 0 ? "Search plants & Flowers" : "Search fish"}
-            placeholderTextColor="#999999"
-            style={{ flex: 1, fontSize: 14, color: "#1F4E20" }}
-            ref={searchRef}
             autoFocus={Boolean(focus)}
           />
         </View>

@@ -41,7 +41,7 @@ export default function ActionScaffold({ visible, onClose, actions = [], mode = 
       const t = setTimeout(() => setMounted(false), 220);
       return () => clearTimeout(t);
     }
-  }, [visible]);
+  }, [visible, translateY, overlayOpacity]);
 
   const sheetStyle = useAnimatedStyle(() => ({
     transform: [{ translateY: translateY.value }],

@@ -1,11 +1,13 @@
-import { BackButton, Button, Dropdown } from "@/components";
-import { useLocalSearchParams, useRouter } from "expo-router";
+import { Button, Dropdown } from "@/components";
+import HeaderWithBack from "@/components/shared/HeaderWithBack";
+import { useLocalSearchParams } from "expo-router";
+import useActionsService from "@/hooks/useActionsService";
 import { useState } from "react";
 import { ScrollView, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function SetAction() {
-  const router = useRouter();
+  const { saveAction } = useActionsService();
   const params = useLocalSearchParams<{ action?: string }>();
   const action = (params.action as string | undefined) ?? "";
 
@@ -14,8 +16,7 @@ export default function SetAction() {
   const [quantity, setQuantity] = useState<string | undefined>(undefined);
 
   const onSave = () => {
-      console.log(system, repeat, quantity) // TOD: make the save action call
-      router.back();
+      saveAction({ system, repeat, quantity });
     }
 
   const systemOptions = [
@@ -39,31 +40,7 @@ export default function SetAction() {
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#F4FAF4" }} edges={["top"]}>
-      <View
-        style={{
-          flexDirection: "row",
-          alignItems: "center",
-          paddingHorizontal: 16,
-          paddingTop: 16,
-          paddingBottom: 24,
-        }}
-      >
-        <View style={{ width: 44 }}>
-          <BackButton style={{ position: "relative", top: 0, left: 0 }} />
-        </View>
-        <Text
-          style={{
-            flex: 1,
-            color: "#1F4E20",
-            fontSize: 28,
-            fontWeight: "700",
-            textAlign: "center",
-          }}
-        >
-          Set Action
-        </Text>
-        <View style={{ width: 44 }} />
-      </View>
+      <HeaderWithBack title="Set Action" />
 
       <ScrollView contentContainerStyle={{ paddingHorizontal: 24, paddingTop: 0, paddingBottom: 40 }} showsVerticalScrollIndicator={false}>
         {action ? (
@@ -88,4 +65,3 @@ export default function SetAction() {
     </SafeAreaView>
   );
 }
-

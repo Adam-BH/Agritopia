@@ -1,6 +1,6 @@
 import { Ionicons } from "@expo/vector-icons";
 import React from "react";
-import { Text, View } from "react-native";
+import { Pressable, Text, View } from "react-native";
 
 type ControlCardProps = {
   icon: React.ComponentProps<typeof Ionicons>["name"];
@@ -10,6 +10,9 @@ type ControlCardProps = {
   showIncrease?: boolean;
   showPower?: boolean;
   marginBottom?: number;
+  onDecrease?: () => void;
+  onIncrease?: () => void;
+  onTogglePower?: () => void;
 };
 
 export default function ControlCard({
@@ -20,6 +23,9 @@ export default function ControlCard({
   showIncrease = true,
   showPower = false,
   marginBottom = 12,
+  onDecrease,
+  onIncrease,
+  onTogglePower,
 }: ControlCardProps) {
   return (
     <View
@@ -39,7 +45,7 @@ export default function ControlCard({
       </View>
       <View style={{ flexDirection: "row", gap: 8 }}>
         {showDecrease && (
-          <View
+          <Pressable
             style={{
               flex: 1,
               backgroundColor: "#E8F5E9",
@@ -47,12 +53,13 @@ export default function ControlCard({
               padding: 12,
               alignItems: "center",
             }}
+            onPress={onDecrease}
           >
             <Ionicons name="remove-circle-outline" size={24} color="#1F4E20" />
-          </View>
+          </Pressable>
         )}
         {showIncrease && (
-          <View
+          <Pressable
             style={{
               flex: 1,
               backgroundColor: "#E8F5E9",
@@ -60,12 +67,13 @@ export default function ControlCard({
               padding: 12,
               alignItems: "center",
             }}
+            onPress={onIncrease}
           >
             <Ionicons name="add-circle-outline" size={24} color="#1F4E20" />
-          </View>
+          </Pressable>
         )}
         {showPower && (
-          <View
+          <Pressable
             style={{
               flex: 1,
               backgroundColor: "#E8F5E9",
@@ -73,9 +81,10 @@ export default function ControlCard({
               padding: 12,
               alignItems: "center",
             }}
+            onPress={onTogglePower}
           >
             <Ionicons name="power-outline" size={24} color="#1F4E20" />
-          </View>
+          </Pressable>
         )}
       </View>
     </View>

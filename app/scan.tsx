@@ -1,27 +1,21 @@
 import BackButton from "@/components/ui/BackButton";
 import Button from "@/components/ui/Button";
+import useQrScanner from "@/hooks/useQrScanner";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { CameraView, useCameraPermissions } from "expo-camera";
+import { CameraView } from "expo-camera";
 import { useRouter } from "expo-router";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Text, View } from "react-native";
 
 export default function Scan() {
   const router = useRouter();
-  const [permission, requestPermission] = useCameraPermissions();
-  const [status, setStatus] = useState<"scanning" | "success" | "fail">("scanning");
-  const [enabled, setEnabled] = useState(true);
+  const { permission, requestPermission, status, handleScan, reset } = useQrScanner();
 
   useEffect(() => {
     if (!permission?.granted) requestPermission();
   }, [permission, requestPermission]);
 
-  const onScan = ({ data }: { data: string }) => {
-    if (!enabled) return;
-    setEnabled(false);
-    const ok = data?.trim().toLowerCase() === "adam"; // TODO: scan validation
-    setStatus(ok ? "success" : "fail");
-  };
+  const onScan = ({ data }: { data: string }) => handleScan(data);
 
   return (
     <View style={{ flex: 1, backgroundColor: "#F4FAF4" }}>
@@ -61,19 +55,18 @@ export default function Scan() {
             <MaterialCommunityIcons name={status === "success" ? "check-circle" : "alert-circle"} size={96} color={status === "success" ? "#22c55e" : "#ef4444"} />
           </View>
           <View style={{ marginTop: 46, width: 335, alignItems: "center", gap: 14 }}>
-            <Text style={{ fontSize: 24, color: "#003300", fontWeight: "700", textAlign: "center", width: "100%" }}>{status === "success" ? "QR Verified !" : "QR Not Found !"}</Text>
+              <Text style={{ fontSize: 24, color: "#003300", fontWeight: "700", textAlign: "center", width: "100%" }}>{status === "success" ? "QR Verified !" : "QR Not Found !"}</Text>
             <Text style={{ fontSize: 14, color: "#707B81", textAlign: "center", width: "100%" }}>{status === "success" ? "Verification successful. You can go back home." : "We cannot identify your QR code please try to scan again"}</Text>
-            <Button
-              title={status === "success" ? "Go Back Home" : "Try Again"}
-              onPress={() => {
-                if (status === "success") {
-                  router.back();
-                } else {
-                  setStatus("scanning");
-                  setEnabled(true);
-                }
-              }}
-            />
+              <Button
+                title={status === "success" ? "Go Back Home" : "Try Again"}
+                onPress={() => {
+                  if (status === "success") {
+                    router.back();
+                  } else {
+                    reset();
+                  }
+                }}
+              />
           </View>
         </View>
       )}

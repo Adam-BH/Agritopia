@@ -14,7 +14,7 @@ type Props = {
 };
 
 export default function CatalogItem({ type = "plant", name, status, imageUri, onPress, onDelete }: Props) {
-  const [hidden, setHidden] = useState(false);
+  const [hidden] = useState(false);
 
   const statusMeta: Record<Status, { label: string; color: string; icon: React.ComponentProps<typeof MaterialCommunityIcons>["name"]; textColor: string }> = {
     ready: { label: "Ready to harvest", color: "#a3e635", icon: "basket", textColor: "#1f2937" },

@@ -1,38 +1,15 @@
 import ControlCard from "@/components/iot/ControlCard";
 import QualityLevelCard from "@/components/iot/QualityLevelCard";
-import BackButton from "@/components/ui/BackButton";
+import HeaderWithBack from "@/components/shared/HeaderWithBack";
+import useIotControls from "@/hooks/useIotControls";
 import { ScrollView, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function IOTControl() {
+  const { onIncrease, onDecrease, togglePower } = useIotControls();
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#F4FAF4" }} edges={["top"]}>
-      {/* Header with Back Button and Title */}
-      <View
-        style={{
-          flexDirection: "row",
-          alignItems: "center",
-          paddingHorizontal: 16,
-          paddingTop: 16,
-          paddingBottom: 24,
-        }}
-      >
-        <View style={{ width: 44 }}>
-          <BackButton style={{ position: "relative", top: 0, left: 0 }} />
-        </View>
-        <Text
-          style={{
-            flex: 1,
-            color: "#1F4E20",
-            fontSize: 28,
-            fontWeight: "700",
-            textAlign: "center",
-          }}
-        >
-          IOT Control
-        </Text>
-        <View style={{ width: 44 }} />
-      </View>
+      <HeaderWithBack title="IOT Control" />
       <ScrollView
         contentContainerStyle={{ paddingHorizontal: 24, paddingTop: 0, paddingBottom: 40 }}
         showsVerticalScrollIndicator={false}
@@ -103,9 +80,9 @@ export default function IOTControl() {
             Quick Controls
           </Text>
 
-          <ControlCard icon="thermometer-outline" title="Temperature" value="23°C" />
-          <ControlCard icon="water-outline" title="Water Level" value="75%" />
-          <ControlCard icon="sunny-outline" title="Light" value="ON" showDecrease={false} showIncrease={false} showPower={true} marginBottom={0} />
+          <ControlCard icon="thermometer-outline" title="Temperature" value="23°C" onDecrease={() => onDecrease("temperature")} onIncrease={() => onIncrease("temperature")} />
+          <ControlCard icon="water-outline" title="Water Level" value="75%" onDecrease={() => onDecrease("water")} onIncrease={() => onIncrease("water")} />
+          <ControlCard icon="sunny-outline" title="Light" value="ON" showDecrease={false} showIncrease={false} showPower={true} marginBottom={0} onTogglePower={() => togglePower("light")} />
         </View>
 
         {/* Water Quality Levels */}
