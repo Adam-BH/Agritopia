@@ -16,7 +16,14 @@ export default function BackButton({ size = 22, color = "#1F4E20", style, onPres
 
   return (
     <Pressable
-      onPress={onPress ?? (() => router.back())}
+      onPress={() => {
+        console.log("Action: back button pressed");
+        if (onPress) {
+          onPress();
+        } else {
+          router.back();
+        }
+      }}
       style={{
         position: "absolute",
         top: insets.top + 16,

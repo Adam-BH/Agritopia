@@ -2,6 +2,7 @@ import { Stack } from "expo-router";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import * as SplashScreen from "expo-splash-screen";
 import { useCallback } from "react";
+import { LanguageProvider } from "../contexts/LanguageContext";
 
 const originalConsoleError = console.error;
 const originalConsoleWarn = console.warn;
@@ -41,24 +42,26 @@ export default function RootLayout() {
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }} onLayout={onLayout}>
-      <Stack
-        screenOptions={{
-          headerShown: false,
-        }}
-      >
-        <Stack.Screen
-          name="plant-details"
-          options={{
+      <LanguageProvider>
+        <Stack
+          screenOptions={{
             headerShown: false,
           }}
-        />
-        <Stack.Screen
-          name="iot-control"
-          options={{
-            headerShown: false,
-          }}
-        />
-      </Stack>
+        >
+          <Stack.Screen
+            name="plant-details"
+            options={{
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name="iot-control"
+            options={{
+              headerShown: false,
+            }}
+          />
+        </Stack>
+      </LanguageProvider>
     </GestureHandlerRootView>
   );
 }

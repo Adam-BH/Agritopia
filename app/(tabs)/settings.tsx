@@ -1,5 +1,6 @@
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { Pressable, ScrollView, Text, View } from "react-native";
+import { Pressable, ScrollView, Text, View, Linking } from "react-native";
+import { useRouter } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 type SettingItemProps = {
@@ -48,6 +49,7 @@ function Section({ title, children }: SectionProps) {
 }
 
 export default function Settings() {
+  const router = useRouter();
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#F4FAF4" }} edges={["top"]}>
       <ScrollView
@@ -61,14 +63,44 @@ export default function Settings() {
 
         {/* Account Setting Section */}
         <Section title="Account Settings">
-          <SettingItem icon="account-edit" label="Edit profile" />
-          <SettingItem icon="translate" label="Change language" />
-          <SettingItem icon="shield-account" label="Privacy" />
+          <SettingItem
+            icon="account-edit"
+            label="Edit profile"
+            onPress={() => {
+              console.log("Action: navigate to edit profile");
+              router.push("/(settings)/edit-profile");
+            }}
+          />
+          <SettingItem
+            icon="translate"
+            label="Change language"
+            onPress={() => {
+              console.log("Action: navigate to change language");
+              router.push("/(settings)/change-language");
+            }}
+          />
         </Section>
 
         {/* Legal Section */}
-        <Section title="Legal">
-          <SettingItem icon="help-circle" label="Help" showExternalLink />
+        <Section title="About">
+          <SettingItem
+            icon="information"
+            label="About us"
+            showExternalLink
+            onPress={() => {
+              console.log("Action: open about us link");
+              Linking.openURL("https://agritopia.com/about");
+            }}
+          />
+          <SettingItem
+            icon="help-circle"
+            label="Help"
+            showExternalLink
+            onPress={() => {
+              console.log("Action: open help link");
+              Linking.openURL("https://agritopia.com/help");
+            }}
+          />
         </Section>
 
         {/* Logout Button */}
@@ -79,6 +111,10 @@ export default function Settings() {
             padding: 16,
             alignItems: "center",
             marginTop: 40,
+          }}
+          onPress={() => {
+            console.log("Action: logout");
+            router.replace("/(auth)/login");
           }}
         >
           <Text style={{ color: "#1F4E20", fontSize: 16, fontWeight: "500", textDecorationLine: "underline" }}>
