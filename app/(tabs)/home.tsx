@@ -1,8 +1,8 @@
 import Button from "@/components/ui/Button";
+import Card from "@/components/ui/Card";
 import WeatherHeader from "@/components/weather/WeatherHeader";
 import { useRouter } from "expo-router";
 import { Image, Pressable, ScrollView, Text, View } from "react-native";
-import Card from "@/components/ui/Card";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function Home() {
@@ -150,6 +150,43 @@ export default function Home() {
                   source={require("@/assets/icons/IOTcontrol.png")}
                   style={{ width: 75, height: 75 }}
                   resizeMode="contain"
+                />
+              </View>
+            </Pressable>
+
+            {/* Chatbot / Help Card */}
+            <Pressable
+              onPress={() => router.push("/chatbot")}
+              style={{
+                width: "48%",
+                backgroundColor: "#FFFFFF",
+                borderRadius: 16,
+                padding: 16,
+                position: "relative",
+                minHeight: 140,
+              }}
+            >
+              <Text style={{ fontSize: 16, fontWeight: "700", color: "#1F4E20", marginBottom: 4 }}>
+                Chatbot
+              </Text>
+              <Text style={{ fontSize: 12, color: "#828A89", marginBottom: 12 }}>
+                Ask for help and tips
+              </Text>
+              <View
+                style={{
+                  width: 90,
+                  height: 90,
+                  borderRadius: 12,
+                  position: "absolute",
+                  bottom: 0,
+                  right: 0,
+                  overflow: "hidden",
+                }}
+              >
+                <Image
+                  source={require("@/assets/icons/chatbot.png")}
+                  style={{ width: 90, height: 90 }}
+                  resizeMode="cover"
                 />
               </View>
             </Pressable>

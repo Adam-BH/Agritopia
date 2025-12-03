@@ -1,6 +1,6 @@
 import { Text, View } from "react-native";
 import CatalogItem from "../ui/CatalogItem";
-import { FISH_TYPES } from "@/data/types";
+import { getById } from "@/services/catalogueService";
 import useDetailsNavigation from "@/hooks/useDetailsNavigation";
 
 type FishRecord = {
@@ -28,14 +28,14 @@ export default function MyFishBoiler() {
       </View>
       <View style={{ marginTop: 12 }}>
         {current.map((it, i) => {
-          const t = FISH_TYPES.find((f) => f.id === it.typeId);
+          const t = getById(it.typeId);
           return (
             <CatalogItem
               key={`fc-${i}`}
               type="fish"
               name={t?.name ?? "Fish"}
               status={it.status}
-              onPress={() => openFish(t?.id)}
+              onPress={() => openFish(t?.id, "myGarden")}
             />
           );
         })}
@@ -46,14 +46,14 @@ export default function MyFishBoiler() {
       </View>
       <View style={{ marginTop: 12 }}>
         {history.map((it, i) => {
-          const t = FISH_TYPES.find((f) => f.id === it.typeId);
+          const t = getById(it.typeId);
           return (
             <CatalogItem
               key={`fh-${i}`}
               type="fish"
               name={t?.name ?? "Fish"}
               status={it.status}
-              onPress={() => openFish(t?.id)}
+              onPress={() => openFish(t?.id, "myGarden")}
             />
           );
         })}

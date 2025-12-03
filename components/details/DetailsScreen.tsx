@@ -3,19 +3,17 @@ import ConditionCardGrid from "@/components/ui/ConditionCardGrid";
 import BackButton from "@/components/ui/BackButton";
 import { ScrollView, StatusBar, Text, View } from "react-native";
 import { SafeAreaView, useSafeAreaInsets } from "react-native-safe-area-context";
-import { PLANT_TYPES, FISH_TYPES } from "@/data/types";
+import { getByKindAndId } from "@/services/catalogueService";
 
 type Props = {
   type: "plant" | "fish";
   id: string;
+  origin?: "catalogue" | "myGarden";
 };
 
-export default function DetailsScreen({ type, id }: Props) {
+export default function DetailsScreen({ type, id, origin }: Props) {
   const insets = useSafeAreaInsets();
-  const item =
-    type === "plant"
-      ? PLANT_TYPES.find((p) => p.id === id)
-      : FISH_TYPES.find((f) => f.id === id);
+  const item = getByKindAndId(type, id);
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#F4FAF4" }} edges={[]}>
@@ -43,7 +41,9 @@ export default function DetailsScreen({ type, id }: Props) {
 
           <ConditionCardGrid title="Favored Conditions" conditions={item?.conditions ?? []} />
 
-          <Button title={type === "plant" ? "Add to My Plants" : "Add to My Fish"} onPress={() => {}} />
+          {origin !== "myGarden" && (
+            <Button title={type === "plant" ? "Add to My Plants" : "Add to My Fish"} onPress={() => {}} />
+          )}
         </View>
       </ScrollView>
     </SafeAreaView>

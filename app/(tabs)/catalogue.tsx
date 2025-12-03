@@ -1,7 +1,9 @@
 import ExploreCard from "@/components/ui/ExploreCard";
+import { FloatingActionButton } from "@/components";
+import { useRouter } from "expo-router";
 import SearchBar from "@/components/ui/SearchBar";
 import SegmentToggle from "@/components/ui/SegmentToggle";
-import { FISH_TYPES, PLANT_TYPES } from "@/data/types";
+import { getAll } from "@/services/catalogueService";
 import useDetailsNavigation from "@/hooks/useDetailsNavigation";
 import { useLocalSearchParams } from "expo-router";
 import { useEffect, useRef, useState } from "react";
@@ -9,10 +11,11 @@ import { FlatList, Text, TextInput, View, useWindowDimensions } from "react-nati
 import { SafeAreaView } from "react-native-safe-area-context";
 
 type Item = { id: string; title: string; kind: "plant" | "fish"; imageUri?: string };
-const PLANTS_DATA: Item[] = PLANT_TYPES.map((p) => ({ id: p.id, title: p.name, kind: "plant", imageUri: p.imageUri }));
-const FISH_DATA: Item[] = FISH_TYPES.map((f) => ({ id: f.id, title: f.name, kind: "fish", imageUri: f.imageUri }));
+const PLANTS_DATA: Item[] = getAll("plant").map((p) => ({ id: p.id, title: p.name, kind: "plant", imageUri: p.imageUri }));
+const FISH_DATA: Item[] = getAll("fish").map((f) => ({ id: f.id, title: f.name, kind: "fish", imageUri: f.imageUri }));
 
 export default function Catalogue() {
+  const router = useRouter();
   const { openByKind } = useDetailsNavigation();
   const { focus } = useLocalSearchParams<{ focus?: string }>();
   const [selectedCategory, setSelectedCategory] = useState(0); // 0 = Plants, 1 = Fish
@@ -83,6 +86,7 @@ export default function Catalogue() {
           )}
           contentContainerStyle={{ paddingBottom: 20 }}
         />
+        <FloatingActionButton iconName="chat" onPress={() => router.push("/chatbot")} />
       </View>
     </SafeAreaView>
   );

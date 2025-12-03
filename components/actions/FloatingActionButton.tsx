@@ -5,9 +5,10 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 type Props = {
   onPress?: () => void;
+  iconName?: keyof typeof MaterialCommunityIcons.glyphMap;
 };
 
-export default function FloatingActionButton({ onPress }: Props) {
+export default function FloatingActionButton({ onPress, iconName = "plus" }: Props) {
   const insets = useSafeAreaInsets();
   return (
     <TouchableOpacity
@@ -32,8 +33,8 @@ export default function FloatingActionButton({ onPress }: Props) {
         zIndex: 100,
       }}
     >
-      <MaterialCommunityIcons name="plus" size={26} color="#FFFFFF" />
-    </TouchableOpacity>
-  );
-}
+      <MaterialCommunityIcons name={iconName} size={26} color="#FFFFFF" />
+      </TouchableOpacity>
+    )
+  }
 

@@ -1,6 +1,6 @@
 import { Text, View } from "react-native";
 import CatalogItem from "../ui/CatalogItem";
-import { PLANT_TYPES } from "@/data/types";
+import { getById } from "@/services/catalogueService";
 import useDetailsNavigation from "@/hooks/useDetailsNavigation";
 
 type PlantRecord = {
@@ -28,14 +28,14 @@ export default function MyPlantsBoiler() {
       </View>
       <View style={{ marginTop: 12 }}>
         {current.map((it, i) => {
-          const t = PLANT_TYPES.find((p) => p.id === it.typeId);
+          const t = getById(it.typeId);
           return (
             <CatalogItem
               key={`c-${i}`}
               type="plant"
               name={t?.name ?? "Plant"}
               status={it.status}
-              onPress={() => openPlant(t?.id)}
+              onPress={() => openPlant(t?.id, "myGarden")}
             />
           );
         })}
@@ -46,14 +46,14 @@ export default function MyPlantsBoiler() {
       </View>
       <View style={{ marginTop: 12 }}>
         {history.map((it, i) => {
-          const t = PLANT_TYPES.find((p) => p.id === it.typeId);
+          const t = getById(it.typeId);
           return (
             <CatalogItem
               key={`h-${i}`}
               type="plant"
               name={t?.name ?? "Plant"}
               status={it.status}
-              onPress={() => openPlant(t?.id)}
+              onPress={() => openPlant(t?.id, "myGarden")}
             />
           );
         })}
