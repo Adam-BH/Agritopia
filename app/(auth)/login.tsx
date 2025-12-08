@@ -7,7 +7,7 @@ import Input from "../../components/ui/Input";
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { signIn, goToSignup } = useAuthFlow();
+  const { signIn, signInGoogle, goToSignup } = useAuthFlow();
 
   return (
     <KeyboardAvoidingView style={{ flex: 1, backgroundColor: "#F4FAF4" }} behavior={Platform.OS === "ios" ? "padding" : undefined}>
@@ -28,7 +28,7 @@ export default function Login() {
 
       <View style={{ marginTop: 28, gap: 12 }}>
         <Button title="Sign In" variant="primary" onPress={() => signIn(email, password)} />
-        <Button title="Sign in with google" variant="secondary" leftIconName="google" />
+        <Button title="Sign in with google" variant="secondary" leftIconName="google" onPress={() => signInGoogle()} />
       </View>
 
       <View style={{ marginTop: 24, flexDirection: "row", justifyContent: "center", gap: 8 }}>

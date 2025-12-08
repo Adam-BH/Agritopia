@@ -1,13 +1,14 @@
-import { Image, Pressable, Text, View } from "react-native";
+import { Image, ImageSourcePropType, Pressable, Text, View } from "react-native";
 
 type Props = {
   kind: "plant" | "fish";
   title: string;
   imageUri?: string;
+  imageSource?: ImageSourcePropType;
   onPress: () => void;
 };
 
-export default function ExploreCard({ kind, title, imageUri, onPress }: Props) {
+export default function ExploreCard({ kind, title, imageUri, imageSource, onPress }: Props) {
   return (
     <Pressable
       onPress={onPress}
@@ -27,7 +28,9 @@ export default function ExploreCard({ kind, title, imageUri, onPress }: Props) {
           alignItems: "center",
         }}
       >
-        {imageUri ? (
+        {imageSource ? (
+          <Image source={imageSource} style={{ width: "100%", height: "100%", resizeMode: "cover" }} />
+        ) : imageUri ? (
           <Image source={{ uri: imageUri }} style={{ width: "100%", height: "100%", resizeMode: "cover" }} />
         ) : (
           <Text style={{ fontSize: 64 }}>{kind === "fish" ? "🐟" : "🌿"}</Text>

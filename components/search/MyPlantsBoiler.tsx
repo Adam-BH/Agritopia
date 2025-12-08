@@ -1,7 +1,7 @@
+import useDetailsNavigation from "@/hooks/useDetailsNavigation";
+import { getById } from "@/services/catalogueService";
 import { Text, View } from "react-native";
 import CatalogItem from "../ui/CatalogItem";
-import { getById } from "@/services/catalogueService";
-import useDetailsNavigation from "@/hooks/useDetailsNavigation";
 
 type PlantRecord = {
   typeId: string;
@@ -13,9 +13,9 @@ type PlantRecord = {
 export default function MyPlantsBoiler() {
   const { openPlant } = useDetailsNavigation();
   const items: PlantRecord[] = [
-    { typeId: "plant_anthurium", status: "healthy", dateAdded: new Date() },
-    { typeId: "plant_tomato", status: "attention", dateAdded: new Date() },
-    { typeId: "plant_sunflower", status: "attention", dateAdded: new Date(), dateHarvested: new Date(new Date().setDate(new Date().getDate() - 2)) },
+    { typeId: "plant_lettuce", status: "healthy", dateAdded: new Date() },
+    { typeId: "plant_basil", status: "attention", dateAdded: new Date() },
+    { typeId: "plant_spinach", status: "attention", dateAdded: new Date(), dateHarvested: new Date(new Date().setDate(new Date().getDate() - 2)) },
   ];
 
   const current = items.filter((it) => !it.dateHarvested);
@@ -35,6 +35,7 @@ export default function MyPlantsBoiler() {
               type="plant"
               name={t?.name ?? "Plant"}
               status={it.status}
+              imageSource={(t as any)?.imageSource}
               onPress={() => openPlant(t?.id, "myGarden")}
             />
           );
@@ -53,6 +54,7 @@ export default function MyPlantsBoiler() {
               type="plant"
               name={t?.name ?? "Plant"}
               status={it.status}
+              imageSource={(t as any)?.imageSource}
               onPress={() => openPlant(t?.id, "myGarden")}
             />
           );

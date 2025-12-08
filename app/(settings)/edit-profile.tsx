@@ -1,15 +1,29 @@
 import { SafeAreaView } from "react-native-safe-area-context";
-import { View, Text, TextInput, Pressable } from "react-native";
-import { useState } from "react";
+import { View, Text, TextInput, Pressable, Alert } from "react-native";
+import { useEffect, useState } from "react";
 import { useRouter } from "expo-router";
 import HeaderWithBack from "@/components/shared/HeaderWithBack";
 import Avatar from "@/components/ui/Avatar";
+import { getCurrentUserProfile, updateCurrentUserProfile } from "@/services/user";
 
 export default function EditProfile() {
   const router = useRouter();
   const [name, setName] = useState("");
-  const [email] = useState("you@example.com");
+  const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
+  const [avatarUri, setAvatarUri] = useState<string | null>(null);
+
+  useEffect(() => {
+    (async () => {
+      const profile = await getCurrentUserProfile();
+      if (profile) {
+        setName(profile.displayName ?? "");
+        setEmail(profile.email ?? "");
+        setPhone(profile.phone ?? "");
+        setAvatarUri(profile.photoURL ?? null);
+      }
+    })();
+  }, []);
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#F4FAF4" }} edges={["top"]}>
@@ -17,7 +31,7 @@ export default function EditProfile() {
         <HeaderWithBack title="Edit Profile" />
 
         <View style={{ alignItems: "center", marginBottom: 16 }}>
-          <Avatar size={100} uri={null} />
+          <Avatar size={100} uri={avatarUri} />
         </View>
 
         <View style={{ backgroundColor: "#FFFFFF", borderRadius: 14, padding: 16 }}>
@@ -70,9 +84,13 @@ export default function EditProfile() {
           />
 
           <Pressable
-            onPress={() => {
-              console.log("Action: save profile", { name, phone });
-              router.back();
+            onPress={async () => {
+              try {
+                await updateCurrentUserProfile({ name, phone });
+                router.back();
+              } catch (e: any) {
+                Alert.alert("Save failed", e?.message ?? "Error");
+              }
             }}
             style={{
               backgroundColor: "#1F4E20",

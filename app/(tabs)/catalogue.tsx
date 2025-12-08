@@ -1,18 +1,16 @@
 import ExploreCard from "@/components/ui/ExploreCard";
-import { FloatingActionButton } from "@/components";
-import { useRouter } from "expo-router";
 import SearchBar from "@/components/ui/SearchBar";
 import SegmentToggle from "@/components/ui/SegmentToggle";
-import { getAll } from "@/services/catalogueService";
 import useDetailsNavigation from "@/hooks/useDetailsNavigation";
-import { useLocalSearchParams } from "expo-router";
+import { getAll } from "@/services/catalogueService";
+import { useLocalSearchParams, useRouter } from "expo-router";
 import { useEffect, useRef, useState } from "react";
-import { FlatList, Text, TextInput, View, useWindowDimensions } from "react-native";
+import { FlatList, ImageSourcePropType, Text, TextInput, View, useWindowDimensions } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-type Item = { id: string; title: string; kind: "plant" | "fish"; imageUri?: string };
-const PLANTS_DATA: Item[] = getAll("plant").map((p) => ({ id: p.id, title: p.name, kind: "plant", imageUri: p.imageUri }));
-const FISH_DATA: Item[] = getAll("fish").map((f) => ({ id: f.id, title: f.name, kind: "fish", imageUri: f.imageUri }));
+type Item = { id: string; title: string; kind: "plant" | "fish"; imageUri?: string; imageSource?: ImageSourcePropType };
+const PLANTS_DATA: Item[] = getAll("plant").map((p) => ({ id: p.id, title: p.name, kind: "plant", imageUri: p.imageUri, imageSource: (p as any).imageSource }));
+const FISH_DATA: Item[] = getAll("fish").map((f) => ({ id: f.id, title: f.name, kind: "fish", imageUri: f.imageUri, imageSource: (f as any).imageSource }));
 
 export default function Catalogue() {
   const router = useRouter();
@@ -80,13 +78,14 @@ export default function Catalogue() {
                 kind={item.kind}
                 title={item.title}
                 imageUri={item.imageUri}
+                imageSource={item.imageSource}
                 onPress={() => handleCardPress(item)}
               />
             </View>
           )}
           contentContainerStyle={{ paddingBottom: 20 }}
         />
-        <FloatingActionButton iconName="chat" onPress={() => router.push("/chatbot")} />
+        {/* <FloatingActionButton iconName="chat" onPress={() => router.push("/chatbot")} /> */}
       </View>
     </SafeAreaView>
   );

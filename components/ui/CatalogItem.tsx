@@ -1,6 +1,6 @@
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useState } from "react";
-import { Image, Pressable, Text, View } from "react-native";
+import { Image, ImageSourcePropType, Pressable, Text, View } from "react-native";
 
 type Status = "ready" | "attention" | "healthy";
 
@@ -9,11 +9,12 @@ type Props = {
   name: string;
   status: Status;
   imageUri?: string;
+  imageSource?: ImageSourcePropType;
   onPress?: () => void;
   onDelete?: () => void;
 };
 
-export default function CatalogItem({ type = "plant", name, status, imageUri, onPress, onDelete }: Props) {
+export default function CatalogItem({ type = "plant", name, status, imageUri, imageSource, onPress, onDelete }: Props) {
   const [hidden] = useState(false);
 
   const statusMeta: Record<Status, { label: string; color: string; icon: React.ComponentProps<typeof MaterialCommunityIcons>["name"]; textColor: string }> = {
@@ -38,7 +39,9 @@ export default function CatalogItem({ type = "plant", name, status, imageUri, on
       </View>
       <View style={{ flexDirection: "row", alignItems: "center", gap: 12 }}>
         <View style={{ width: 72, height: 72, borderRadius: 12, backgroundColor: "#E2E2E2", alignItems: "center", justifyContent: "center", overflow: "hidden" }}>
-          {imageUri ? (
+          {imageSource ? (
+            <Image source={imageSource} style={{ width: 56, height: 56, resizeMode: "cover" }} />
+          ) : imageUri ? (
             <Image source={{ uri: imageUri }} style={{ width: 56, height: 56, resizeMode: "cover" }} />
           ) : (
             <MaterialCommunityIcons name={type === "fish" ? "fish" : "sprout"} size={36} color="#1F4E20" />

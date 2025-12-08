@@ -88,7 +88,7 @@ export default function Home() {
             }}
           >
             <Text style={{ fontSize: 12, color: "#828A89", textAlign: "center" }}>
-              🌿 Hydroponic{"\n"}System Image
+              Estimate your{"\n"}System Health
             </Text>
           </View>
 
@@ -97,7 +97,7 @@ export default function Home() {
               Check your System
             </Text>
             <Text style={{ fontSize: 14, color: "#828A89", marginBottom: 16, lineHeight: 20 }}>
-              Take photos, start diagnose diseases & get plant care tips
+              Call for maintenance to check your system
             </Text>
             <Button title="Diagnose" variant="primary" compact />
           </View>
@@ -164,6 +164,7 @@ export default function Home() {
                 padding: 16,
                 position: "relative",
                 minHeight: 140,
+                display: "none"
               }}
             >
               <Text style={{ fontSize: 16, fontWeight: "700", color: "#1F4E20", marginBottom: 4 }}>
@@ -219,7 +220,7 @@ export default function Home() {
             </Card>
 
             {/* Recommendations Card */}
-            <Card style={{ width: "48%", position: "relative", minHeight: 140 }}>
+            <Card style={{ width: "48%", position: "relative", minHeight: 140}}>
               <Text style={{ fontSize: 14, fontWeight: "700", color: "#1F4E20", marginBottom: 4 }}>
                 Recommendations
               </Text>
@@ -235,6 +236,7 @@ export default function Home() {
                   bottom: 0,
                   right: 0,
                   overflow: "hidden",
+                  
                 }}
               >
                 <Image
@@ -246,7 +248,17 @@ export default function Home() {
             </Card>
 
             {/* Reminders Card */}
-            <Card style={{ width: "48%", position: "relative", minHeight: 140 }}>
+            <Pressable
+              onPress={() => router.push({ pathname: "/(tabs)/my-garden", params: { tab: "schedule" } })}
+              style={{
+                width: "48%",
+                backgroundColor: "#FFFFFF",
+                borderRadius: 16,
+                padding: 16,
+                position: "relative",
+                minHeight: 140,
+              }}
+            >
               <Text style={{ fontSize: 16, fontWeight: "700", color: "#1F4E20", marginBottom: 4 }}>
                 Reminders
               </Text>
@@ -270,7 +282,7 @@ export default function Home() {
                   resizeMode="cover"
                 />
               </View>
-            </Card>
+            </Pressable>
           </View>
         </View>
       </ScrollView>

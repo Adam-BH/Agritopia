@@ -2,8 +2,7 @@ import HeaderWithBack from "@/components/shared/HeaderWithBack";
 import Button from "@/components/ui/Button";
 import Input from "@/components/ui/Input";
 import useChatbot from "@/hooks/useChatbot";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { SafeAreaView, useSafeAreaInsets } from "react-native-safe-area-context";
 import { ScrollView, Text, View, Keyboard, Platform } from "react-native";
 import { useEffect, useRef, useState } from "react";
 

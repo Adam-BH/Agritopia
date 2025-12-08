@@ -1,14 +1,14 @@
-import { SafeAreaView } from "react-native-safe-area-context";
-import { View, Text, Pressable } from "react-native";
-import { useRouter } from "expo-router";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
 import HeaderWithBack from "@/components/shared/HeaderWithBack";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { useRouter } from "expo-router";
+import { Pressable, Text, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { useLanguage } from "../../contexts/LanguageContext";
 
 const LANGUAGES = [
   { code: "en", label: "English" },
   { code: "fr", label: "Français" },
-  { code: "es", label: "Español" },
+  { code: "ar", label: "العربية" }
 ];
 
 export default function ChangeLanguage() {

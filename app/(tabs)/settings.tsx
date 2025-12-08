@@ -1,6 +1,7 @@
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Pressable, ScrollView, Text, View, Linking } from "react-native";
 import { useRouter } from "expo-router";
+import useAuthFlow from "@/hooks/useAuthFlow";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 type SettingItemProps = {
@@ -50,6 +51,7 @@ function Section({ title, children }: SectionProps) {
 
 export default function Settings() {
   const router = useRouter();
+  const { logout } = useAuthFlow();
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#F4FAF4" }} edges={["top"]}>
       <ScrollView
@@ -113,8 +115,7 @@ export default function Settings() {
             marginTop: 40,
           }}
           onPress={() => {
-            console.log("Action: logout");
-            router.replace("/(auth)/login");
+            logout();
           }}
         >
           <Text style={{ color: "#1F4E20", fontSize: 16, fontWeight: "500", textDecorationLine: "underline" }}>

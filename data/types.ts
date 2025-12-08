@@ -6,12 +6,15 @@ export type Condition = {
   value: string;
 };
 
+import { ImageSourcePropType } from "react-native";
+
 export type PlantType = {
   id: string;
   kind: "plant";
   name: string;
   description: string;
   imageUri?: string;
+  imageSource?: ImageSourcePropType;
   conditions: Condition[];
 };
 
@@ -21,47 +24,107 @@ export type FishType = {
   name: string;
   description: string;
   imageUri?: string;
+  imageSource?: ImageSourcePropType;
   conditions: Condition[];
 };
 
 export const PLANT_TYPES: PlantType[] = [
   {
-    id: "plant_tomato",
+    id: "plant_lettuce",
     kind: "plant",
-    name: "Tomato",
+    name: "Lettuce",
     description:
-      "Tomato adds color and flavor; grows well with moderate sunlight and consistent watering.",
+      "Lettuce grows quickly in aquaponics; prefers cool temperatures and moderate light.",
+    imageSource: require("@/assets/plantfish/output_images/lettuce.png"),
     conditions: [
-      { iconName: "water", iconColor: "#00695C", iconBackgroundColor: "#B2DFDB", label: "Water", value: "250 ml" },
-      { iconName: "weather-sunny", iconColor: "#2E7D32", iconBackgroundColor: "#C8E6C9", label: "Sunlight", value: "Normal" },
+      { iconName: "water", iconColor: "#00695C", iconBackgroundColor: "#B2DFDB", label: "Water", value: "220 ml" },
+      { iconName: "weather-sunny", iconColor: "#2E7D32", iconBackgroundColor: "#C8E6C9", label: "Sunlight", value: "Moderate" },
+      { iconName: "waveform", iconColor: "#2E7D32", iconBackgroundColor: "#C8E6C9", label: "O2%", value: "8.2%" },
+      { iconName: "water-percent", iconColor: "#2E7D32", iconBackgroundColor: "#C8E6C9", label: "Humidity", value: "55%" },
+    ],
+  },
+  {
+    id: "plant_basil",
+    kind: "plant",
+    name: "Basil",
+    description:
+      "Basil thrives in warm conditions with plenty of light; aromatic and fast-growing herb.",
+    imageSource: require("@/assets/plantfish/output_images/basil.png"),
+    conditions: [
+      { iconName: "water", iconColor: "#00695C", iconBackgroundColor: "#B2DFDB", label: "Water", value: "240 ml" },
+      { iconName: "weather-sunny", iconColor: "#F9A825", iconBackgroundColor: "#FFE082", label: "Sunlight", value: "High" },
+      { iconName: "waveform", iconColor: "#2E7D32", iconBackgroundColor: "#C8E6C9", label: "O2%", value: "8.4%" },
+      { iconName: "water-percent", iconColor: "#2E7D32", iconBackgroundColor: "#C8E6C9", label: "Humidity", value: "58%" },
+    ],
+  },
+  {
+    id: "plant_spinach",
+    kind: "plant",
+    name: "Spinach",
+    description:
+      "Spinach is nutrient-rich and cold-tolerant; ideal for aquaponic systems with steady water flow.",
+    imageSource: require("@/assets/plantfish/output_images/spinach.png"),
+    conditions: [
+      { iconName: "water", iconColor: "#00695C", iconBackgroundColor: "#B2DFDB", label: "Water", value: "230 ml" },
+      { iconName: "weather-sunny", iconColor: "#2E7D32", iconBackgroundColor: "#C8E6C9", label: "Sunlight", value: "Moderate" },
       { iconName: "waveform", iconColor: "#2E7D32", iconBackgroundColor: "#C8E6C9", label: "O2%", value: "8.3%" },
+      { iconName: "water-percent", iconColor: "#2E7D32", iconBackgroundColor: "#C8E6C9", label: "Humidity", value: "56%" },
+    ],
+  },
+  {
+    id: "plant_mint",
+    kind: "plant",
+    name: "Mint",
+    description:
+      "Mint is vigorous and aromatic; grows well in moist conditions with partial shade.",
+    imageSource: require("@/assets/plantfish/output_images/mint.png"),
+    conditions: [
+      { iconName: "water", iconColor: "#00695C", iconBackgroundColor: "#B2DFDB", label: "Water", value: "260 ml" },
+      { iconName: "weather-sunny", iconColor: "#2E7D32", iconBackgroundColor: "#C8E6C9", label: "Sunlight", value: "Partial" },
+      { iconName: "waveform", iconColor: "#2E7D32", iconBackgroundColor: "#C8E6C9", label: "O2%", value: "8.1%" },
+      { iconName: "water-percent", iconColor: "#2E7D32", iconBackgroundColor: "#C8E6C9", label: "Humidity", value: "62%" },
+    ],
+  },
+  {
+    id: "plant_cilantro",
+    kind: "plant",
+    name: "Cilantro",
+    description:
+      "Cilantro adds fresh flavor to dishes; prefers cooler temperatures and moderate light.",
+    imageSource: require("@/assets/plantfish/output_images/cilantro.png"),
+    conditions: [
+      { iconName: "water", iconColor: "#00695C", iconBackgroundColor: "#B2DFDB", label: "Water", value: "210 ml" },
+      { iconName: "weather-sunny", iconColor: "#2E7D32", iconBackgroundColor: "#C8E6C9", label: "Sunlight", value: "Moderate" },
+      { iconName: "waveform", iconColor: "#2E7D32", iconBackgroundColor: "#C8E6C9", label: "O2%", value: "8.0%" },
       { iconName: "water-percent", iconColor: "#2E7D32", iconBackgroundColor: "#C8E6C9", label: "Humidity", value: "54%" },
     ],
   },
   {
-    id: "plant_sunflower",
+    id: "plant_parsley",
     kind: "plant",
-    name: "Sunflower",
+    name: "Parsley",
     description:
-      "Sunflower thrives in direct sunlight; keep soil evenly moist for strong growth.",
+      "Parsley is versatile and nutrient-dense; grows well with consistent moisture and light.",
+    imageSource: require("@/assets/plantfish/output_images/parsley.png"),
     conditions: [
-      { iconName: "water", iconColor: "#00695C", iconBackgroundColor: "#B2DFDB", label: "Water", value: "200 ml" },
-      { iconName: "weather-sunny", iconColor: "#F9A825", iconBackgroundColor: "#FFE082", label: "Sunlight", value: "High" },
-      { iconName: "waveform", iconColor: "#2E7D32", iconBackgroundColor: "#C8E6C9", label: "O2%", value: "8.0%" },
-      { iconName: "water-percent", iconColor: "#2E7D32", iconBackgroundColor: "#C8E6C9", label: "Humidity", value: "50%" },
+      { iconName: "water", iconColor: "#00695C", iconBackgroundColor: "#B2DFDB", label: "Water", value: "225 ml" },
+      { iconName: "weather-sunny", iconColor: "#2E7D32", iconBackgroundColor: "#C8E6C9", label: "Sunlight", value: "Moderate" },
+      { iconName: "waveform", iconColor: "#2E7D32", iconBackgroundColor: "#C8E6C9", label: "O2%", value: "8.2%" },
+      { iconName: "water-percent", iconColor: "#2E7D32", iconBackgroundColor: "#C8E6C9", label: "Humidity", value: "57%" },
     ],
   },
   {
-    id: "plant_anthurium",
+    id: "plant_green_onions",
     kind: "plant",
-    name: "Anthurium",
+    name: "Green Onions",
     description:
-      "Anthurium prefers bright, indirect light and high humidity; avoid over-watering.",
+      "Green onions are fast-growing and easy to maintain; thrive in aquaponic environments.",
+    imageSource: require("@/assets/plantfish/output_images/green_onions.png"),
     conditions: [
-      { iconName: "water", iconColor: "#00695C", iconBackgroundColor: "#B2DFDB", label: "Water", value: "180 ml" },
-      { iconName: "weather-sunny", iconColor: "#2E7D32", iconBackgroundColor: "#C8E6C9", label: "Sunlight", value: "Indirect" },
-      { iconName: "waveform", iconColor: "#2E7D32", iconBackgroundColor: "#C8E6C9", label: "O2%", value: "8.1%" },
-      { iconName: "water-percent", iconColor: "#2E7D32", iconBackgroundColor: "#C8E6C9", label: "Humidity", value: "60%" },
+      { iconName: "water", iconColor: "#00695C", iconBackgroundColor: "#B2DFDB", label: "Water", value: "200 ml" },
+      { iconName: "weather-sunny", iconColor: "#2E7D32", iconBackgroundColor: "#C8E6C9", label: "Sunlight", value: "Moderate" },
+      { iconName: "waveform", iconColor: "#2E7D32", iconBackgroundColor: "#C8E6C9", label: "O2%", value: "7.9%" },
+      { iconName: "water-percent", iconColor: "#2E7D32", iconBackgroundColor: "#C8E6C9", label: "Humidity", value: "53%" },
     ],
   },
 ];
@@ -73,6 +136,7 @@ export const FISH_TYPES: FishType[] = [
     name: "Tilapia",
     description:
       "Tilapia is hardy and adaptable; maintain clean water and consistent oxygenation.",
+    imageSource: require("@/assets/plantfish/output_images/tilapia.png"),
     conditions: [
       { iconName: "water", iconColor: "#00695C", iconBackgroundColor: "#B2DFDB", label: "Water", value: "Stable" },
       { iconName: "weather-sunny", iconColor: "#2E7D32", iconBackgroundColor: "#C8E6C9", label: "Sunlight", value: "Low" },
@@ -81,28 +145,16 @@ export const FISH_TYPES: FishType[] = [
     ],
   },
   {
-    id: "fish_catfish",
+    id: "fish_shrimp",
     kind: "fish",
-    name: "Catfish",
+    name: "Shrimp",
     description:
-      "Catfish tolerates varied conditions; ensure adequate bottom habitat and filtration.",
+      "Shrimp are excellent algae eaters and nutrient cyclers; require stable water parameters.",
+    imageSource: require("@/assets/plantfish/output_images/crevette.png"),
     conditions: [
-      { iconName: "water", iconColor: "#00695C", iconBackgroundColor: "#B2DFDB", label: "Water", value: "Stable" },
+      { iconName: "water", iconColor: "#00695C", iconBackgroundColor: "#B2DFDB", label: "Water", value: "Clean" },
       { iconName: "weather-sunny", iconColor: "#2E7D32", iconBackgroundColor: "#C8E6C9", label: "Sunlight", value: "Low" },
-      { iconName: "waveform", iconColor: "#1565C0", iconBackgroundColor: "#BBDEFB", label: "O2%", value: "6.8%" },
-      { iconName: "water-percent", iconColor: "#2E7D32", iconBackgroundColor: "#C8E6C9", label: "Humidity", value: "Aquatic" },
-    ],
-  },
-  {
-    id: "fish_salmon",
-    kind: "fish",
-    name: "Salmon",
-    description:
-      "Salmon requires cool, oxygen-rich water; maintain flow and cleanliness.",
-    conditions: [
-      { iconName: "water", iconColor: "#00695C", iconBackgroundColor: "#B2DFDB", label: "Water", value: "Cool" },
-      { iconName: "weather-sunny", iconColor: "#2E7D32", iconBackgroundColor: "#C8E6C9", label: "Sunlight", value: "Low" },
-      { iconName: "waveform", iconColor: "#1565C0", iconBackgroundColor: "#BBDEFB", label: "O2%", value: "7.2%" },
+      { iconName: "waveform", iconColor: "#1565C0", iconBackgroundColor: "#BBDEFB", label: "O2%", value: "7.0%" },
       { iconName: "water-percent", iconColor: "#2E7D32", iconBackgroundColor: "#C8E6C9", label: "Humidity", value: "Aquatic" },
     ],
   },

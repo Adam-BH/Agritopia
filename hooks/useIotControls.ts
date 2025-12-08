@@ -1,12 +1,16 @@
+import { useState } from 'react';
+
 export default function useIotControls() {
-  const onIncrease = (control: string) => {
-    console.log("iot.increase", { control });
-  };
-  const onDecrease = (control: string) => {
-    console.log("iot.decrease", { control });
-  };
+  const [isFishFeedOn, setIsFishFeedOn] = useState(false);
+  const [isO2PumpOn, setIsO2PumpOn] = useState(true);
+  
   const togglePower = (control: string) => {
     console.log("iot.togglePower", { control });
+    if (control === "fishFeed") {
+      setIsFishFeedOn(!isFishFeedOn);
+    } else if (control === "o2Pump") {
+      setIsO2PumpOn(!isO2PumpOn);
+    }
   };
-  return { onIncrease, onDecrease, togglePower };
+  return { togglePower, isFishFeedOn, isO2PumpOn };
 }

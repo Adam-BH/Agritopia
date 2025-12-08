@@ -3,7 +3,8 @@ import MyPlantsBoiler from "@/components/search/MyPlantsBoiler";
 import ScheduleBoiler from "@/components/search/ScheduleBoiler";
 import SegmentToggle from "@/components/ui/SegmentToggle";
 import useActionRouting from "@/hooks/useActionRouting";
-import { useState } from "react";
+import { useLocalSearchParams } from "expo-router";
+import { useEffect, useState } from "react";
 import { Text, View } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import { SafeAreaView, useSafeAreaInsets } from "react-native-safe-area-context";
@@ -14,6 +15,10 @@ export default function MyGarden() {
   const [seg, setSeg] = useState(0);
   const [showAdd, setShowAdd] = useState(false);
   const insets = useSafeAreaInsets();
+  const { tab } = useLocalSearchParams<{ tab?: string }>();
+  useEffect(() => {
+    if (tab === "schedule") setSeg(2);
+  }, [tab]);
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#F4FAF4" }} edges={["top"]}>
       <View style={{ flex: 1 }}>

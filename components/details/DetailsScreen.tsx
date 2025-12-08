@@ -1,9 +1,9 @@
+import BackButton from "@/components/ui/BackButton";
 import Button from "@/components/ui/Button";
 import ConditionCardGrid from "@/components/ui/ConditionCardGrid";
-import BackButton from "@/components/ui/BackButton";
-import { ScrollView, StatusBar, Text, View } from "react-native";
-import { SafeAreaView, useSafeAreaInsets } from "react-native-safe-area-context";
 import { getByKindAndId } from "@/services/catalogueService";
+import { Image, ScrollView, StatusBar, Text, View } from "react-native";
+import { SafeAreaView, useSafeAreaInsets } from "react-native-safe-area-context";
 
 type Props = {
   type: "plant" | "fish";
@@ -20,11 +20,15 @@ export default function DetailsScreen({ type, id, origin }: Props) {
       <StatusBar barStyle="light-content" translucent backgroundColor="transparent" />
       <BackButton />
       <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false} contentInsetAdjustmentBehavior="never">
-        <View style={{ position: "relative", width: "100%", height: 200 + insets.top, backgroundColor: "#E2E2E2" }}>
-          <View style={{ width: "100%", height: "100%", backgroundColor: "#D0D0D0", justifyContent: "center", alignItems: "center" }}>
-            <Text style={{ fontSize: 64 }}>{type === "plant" ? "🌿" : "🐟"}</Text>
-            <Text style={{ marginTop: 8, color: "#666", fontSize: 14 }}>{type === "plant" ? "Plant Image" : "Fish Image"}</Text>
-          </View>
+        <View style={{ position: "relative", width: "100%", height: 200 + insets.top, backgroundColor: "#E2E2E2", overflow: "hidden" }}>
+          {item && (item as any).imageSource ? (
+            <Image source={(item as any).imageSource} style={{ width: "100%", height: "100%", resizeMode: "cover" }} />
+          ) : (
+            <View style={{ width: "100%", height: "100%", backgroundColor: "#D0D0D0", justifyContent: "center", alignItems: "center" }}>
+              <Text style={{ fontSize: 64 }}>{type === "plant" ? "🌿" : "🐟"}</Text>
+              <Text style={{ marginTop: 8, color: "#666", fontSize: 14 }}>{type === "plant" ? "Plant Image" : "Fish Image"}</Text>
+            </View>
+          )}
         </View>
 
         <View style={{ backgroundColor: "#F4FAF4", borderTopLeftRadius: 24, borderTopRightRadius: 24, marginTop: -24, paddingTop: 24, paddingHorizontal: 20, paddingBottom: 32 }}>

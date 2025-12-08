@@ -16,15 +16,21 @@ export default function ScheduleBoiler() {
 
   const tasks = useMemo(
     () => [
-      { id: "1", title: "First meal", day: 0, time: "09:00 A.M.", completed: true },
-      { id: "2", title: "Second meal", day: 0, time: "01:00 P.M.", completed: false },
-      { id: "3", title: "Evening snack", day: 0, time: "05:00 P.M.", completed: false },
-      { id: "4", title: "Gym", day: 1, time: "07:00 P.M.", completed: false },
-      { id: "5", title: "Meeting", day: 2, time: "10:30 A.M.", completed: false },
-      { id: "6", title: "Groceries", day: 3, time: "06:00 P.M.", completed: false },
-      { id: "7", title: "Movie night", day: 4, time: "08:00 P.M.", completed: false },
-      { id: "8", title: "Brunch", day: 5, time: "11:00 A.M.", completed: false },
-      { id: "9", title: "Family call", day: 6, time: "04:00 P.M.", completed: false },
+    { id: "1", title: "Check O2 levels", day: 0, time: "08:00 A.M.", completed: true },
+    { id: "2", title: "Feed fish", day: 0, time: "09:00 A.M.", completed: false },
+    { id: "3", title: "Test pH levels", day: 0, time: "06:00 P.M.", completed: false },
+    { id: "4", title: "Check water temp", day: 1, time: "08:30 A.M.", completed: false },
+    { id: "5", title: "Feed fish", day: 1, time: "09:00 A.M.", completed: false },
+    { id: "6", title: "Inspect pump filter", day: 2, time: "10:00 A.M.", completed: false },
+    { id: "7", title: "Check water level", day: 2, time: "05:00 P.M.", completed: false },
+    { id: "8", title: "Feed fish", day: 3, time: "09:00 A.M.", completed: false },
+    { id: "9", title: "Clean grow beds", day: 3, time: "03:00 P.M.", completed: false },
+    { id: "10", title: "Test ammonia levels", day: 4, time: "10:00 A.M.", completed: false },
+    { id: "11", title: "Feed fish", day: 4, time: "09:00 A.M.", completed: false },
+    { id: "12", title: "Harvest lettuce", day: 5, time: "11:00 A.M.", completed: false },
+    { id: "13", title: "Check air stones", day: 5, time: "02:00 P.M.", completed: false },
+    { id: "14", title: "Feed fish", day: 6, time: "09:00 A.M.", completed: false },
+    { id: "15", title: "Weekly system check", day: 6, time: "04:00 P.M.", completed: false },
     ],
     []
   );

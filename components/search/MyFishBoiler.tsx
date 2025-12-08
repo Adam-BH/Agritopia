@@ -1,7 +1,7 @@
+import useDetailsNavigation from "@/hooks/useDetailsNavigation";
+import { getById } from "@/services/catalogueService";
 import { Text, View } from "react-native";
 import CatalogItem from "../ui/CatalogItem";
-import { getById } from "@/services/catalogueService";
-import useDetailsNavigation from "@/hooks/useDetailsNavigation";
 
 type FishRecord = {
   typeId: string;
@@ -14,8 +14,8 @@ export default function MyFishBoiler() {
   const { openFish } = useDetailsNavigation();
   const items: FishRecord[] = [
     { typeId: "fish_tilapia", status: "healthy", dateAdded: new Date() },
-    { typeId: "fish_catfish", status: "attention", dateAdded: new Date() },
-    { typeId: "fish_salmon", status: "ready", dateAdded: new Date(), dateHarvested: new Date(new Date().setDate(new Date().getDate() - 1)) },
+    { typeId: "fish_shrimp", status: "attention", dateAdded: new Date() },
+    { typeId: "fish_shrimp", status: "ready", dateAdded: new Date(), dateHarvested: new Date(new Date().setDate(new Date().getDate() - 1)) },
   ];
 
   const current = items.filter((it) => !it.dateHarvested);
@@ -35,6 +35,7 @@ export default function MyFishBoiler() {
               type="fish"
               name={t?.name ?? "Fish"}
               status={it.status}
+              imageSource={(t as any)?.imageSource}
               onPress={() => openFish(t?.id, "myGarden")}
             />
           );
@@ -53,6 +54,7 @@ export default function MyFishBoiler() {
               type="fish"
               name={t?.name ?? "Fish"}
               status={it.status}
+              imageSource={(t as any)?.imageSource}
               onPress={() => openFish(t?.id, "myGarden")}
             />
           );
